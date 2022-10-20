@@ -82,21 +82,24 @@
                     </td>
                     
                     <td class="CELDABTN">
-                        <div class="BlancocuadroConsultas BOTON_BORRAR" id="BOTON_B_REGISTRO">
-                            <img src="{% static 'Imagenes/Desactivar.png'%}" alt="" class="BtRegistro BlancoBt">
+                        <div class="BlancocuadroConsultas" id="BOTON_B_REGISTRO">
+                            <img src="{% static 'Imagenes/Desactivar.png'%}" alt="" class="BtRegistro BlancoBt BOTON_BORRAR">
                         </div>
                     </td>
                 </tr>
-                <datalist id="List_Productos">
-                    <option value="Sexo"></option>
-                </datalist>
             </table>
+            <datalist id="List_Productos">
+                {% for Prod in Productos %}
+                <option value="{{Prod.NOMBRE}}"></option>
+                {% endfor %}
+            </datalist>
             <br>
             <div class="BlancocuadroConsultas" style="margin-top: 5px;" id="BOTON_A_REGISTRO">
                 <img src="{% static 'Imagenes/Mas.png'%}" alt="" class="BtRegistro BlancoBt">
             </div>
         </section>
     </form>
+    <script src="{% static '/Scripts/Listas.js' %}"></script>
     <script src="{% static '/Scripts/TablasIngreso.js' %}"></script>
 </section>
 {% endblock%}

@@ -28,6 +28,7 @@ def Crear_Dic_Base(Ruta):
 
 def Bodega_edicio(request):
     Datos= Crear_Dic_Base("Bodegas")
+    Datos["Productos"]= Archivo("Producto").Extraer()
     return render(request,"Bodegas.html",Datos)
 
 def Ingresar(request,Tipo):

@@ -11,7 +11,8 @@ function Desenfocar(){
 
 for (var i=0;i<Listas.length;i++){
     Listas[i].addEventListener("blur",(e)=>{
-        var DATOS= e.target.nextElementSibling;
+        let IDBUSCAR=e.target.getAttribute("list");
+        var DATOS= document.getElementById(IDBUSCAR);
         var Tama_List=DATOS.children.length;
         var Paro=true
         for(j=0;j<Tama_List;j++){
@@ -49,7 +50,8 @@ for (var i=0;i<Listas.length;i++){
 Formulario.addEventListener("submit",(e)=>{
     for (var i=0 ; i< Listas.length;i++){
         var Parar=true
-        var Listdata= Listas[i].nextElementSibling
+        let IDBUSCAR=Listas[i].getAttribute("list");
+        var Listdata= document.getElementById(IDBUSCAR);
         var Tama_List=Listdata.children.length;
         for(j=0;j<Tama_List;j++){
             if(Listdata.children[j].getAttribute("value") == Listas[i].value){
