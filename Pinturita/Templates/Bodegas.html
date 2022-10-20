@@ -1,0 +1,102 @@
+<!-- Aqui heredamos de la base-->
+{% extends 'Base.html' %}
+<!-- Permite cargar los archivos estaticos-->
+{% load static %}
+
+<!-- Aqui empieza la seccion de formulario-->
+{% block Vista %} Bodegas {% endblock Vista %}
+{% block content %}
+<section class="Formulario" style="align-items: baseline; height: 100%;">
+    <form action="{% url 'Edicion:Ingresar' 'Bodegas_Bodegas' %}" method="post">
+        <!-- El div "Filas" contendra 2 entradas (inputs)-->
+
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="ID">ID</label>
+                <br>
+                <input id = "ID" type="number" namw="ID"> 
+            </div>
+            <div class="Entradas">
+                <label for="Nombre">Nombre</label>
+                <br>
+                <input  id = "Nombre" type="text" name="Nombre"> 
+            </div>
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Estado">Estado</label>
+                <br>
+                <select name="Estado" id="Estado">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select> 
+            </div>
+            <div class="Entradas">
+                <label for="Ventas">Ventas</label>
+                <br>
+                <select name="Ventas" id="Ventas">
+                    <option value="Verdadero">Verdadero</option>
+                    <option value="Falso">Falso</option>
+                </select>
+            </div>
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Ubicacion">Ubicacion</label>
+                <br>
+                <textarea name="UBICACION" id="Ubicacion" cols="30" rows="4"></textarea> 
+            </div>
+            <div class="Entradas"> 
+                <label for="Descripcion">Descripcion</label>
+                <br>
+                <textarea name="DESCRIPCION" id="Descripcion" cols="30" rows="4"></textarea>
+            </div>
+            <div class="Entradas">
+                <div class="Blancocuadro">
+                    <img src="{% static 'Imagenes/Guardar.png'%}" alt="" class="Btn BlancoBt" >
+                </div>  
+            </div>
+        </div>
+        <div class="Filas">
+            <!--El div "Entradas" contiene un label y un input-->
+            {% include 'INPUT_BASE.html'%}
+        </div>
+        <br>  
+        <section class="Consultat"> 
+            <table class="Tabla_input" id="Tabla">
+                <tr class="Enc-Tabla">
+                    <th>Producto</th>
+                    <th>Cod</th>
+                    <th>Stock</th>
+                    <th class="CELDANOP"></th>
+                </tr>
+                <tr id="RegistroTabla">
+                    <td>
+                        <input type="text" list="List_Productos" class="Listas" name="PRODUCTO" data-direccion="Contactos_Empleados" data-archivo="Dir">
+                    </td>
+                    <td>
+                        <input type="number" name="CODIGO" id="" readonly>
+                    </td>
+                    <td>
+                        <input type="number" name="STOCK" id="" min="0">
+                    </td>
+                    
+                    <td class="CELDABTN">
+                        <div class="BlancocuadroConsultas BOTON_BORRAR" id="BOTON_B_REGISTRO">
+                            <img src="{% static 'Imagenes/Desactivar.png'%}" alt="" class="BtRegistro BlancoBt">
+                        </div>
+                    </td>
+                </tr>
+                <datalist id="List_Productos">
+                    <option value="Sexo"></option>
+                </datalist>
+            </table>
+            <br>
+            <div class="BlancocuadroConsultas" style="margin-top: 5px;" id="BOTON_A_REGISTRO">
+                <img src="{% static 'Imagenes/Mas.png'%}" alt="" class="BtRegistro BlancoBt">
+            </div>
+        </section>
+    </form>
+    <script src="{% static '/Scripts/TablasIngreso.js' %}"></script>
+</section>
+{% endblock%}

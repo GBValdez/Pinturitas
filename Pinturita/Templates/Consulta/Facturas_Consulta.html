@@ -1,0 +1,50 @@
+{% extends 'Base.html' %}
+<!-- Tabla de consulta-->
+{%load static%}
+{% block Vista %}Facturas{% endblock Vista %}
+{% block content %}
+<section class="FormuCon">
+    <form action="" method="post">
+        <div class="Fila">
+            <div class="EntraConsulta">
+                <label for="Codigo">Código</label>
+                <div class="Inputs">
+                    <input type="text" name="Codigo" id="">
+                    <img src="{% static 'Imagenes/Buscar.png' %}" alt="Imagen de lupa" class="Btn">
+                </div>
+                
+            </div>
+        </div>
+    </form>
+</section>
+
+<section class="Consultat"> 
+    <table>
+        <tr class="Enc-Tabla">
+            <th>No DCTE</th>
+            <th>Serie</th>
+            <th>Emisor</th>
+            <th>Receptor</th>
+            <th>Fecha</th>
+            <th>Cod Movimiento</th>
+            <th class="CELDANOP"></th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>A</td>
+            <td>Luan Palomera</td>
+            <td>Toxomorox</td>
+            <td>10/10/10</td>
+            <td>C_1</td>
+            <td class="CELDABTN">
+                <div class="BlancocuadroConsultas">
+                    <img src="{% static 'Imagenes/Editar.png' %}"  alt="" class="BtRegistro BlancoBt" style="height: 20px; width: 20px;">
+                </div>
+                <div class="BlancocuadroConsultas">
+                    <img src="{% static 'Imagenes/Desactivar.png' %}" alt="" class="BtRegistro BlancoBt">
+                </div>
+            </td>
+        </tr>
+    </table>
+</section>
+{% endblock content %}

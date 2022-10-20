@@ -1,0 +1,151 @@
+/*Ponemos el fondo blanco */
+body{background-color: white;}
+/*Hacemos que el div que contiene el fondo sea responsivo */
+.contenedor_de_fondo
+{
+    z-index: -100;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*Le damos estilos al img de fondo */
+.Fondo
+{
+width: 70%;
+height: auto;
+}
+
+/*Le damos estilos al panel */
+.HeadCabeza{
+    position: fixed;
+    width: 20vw;
+    height: 100vh;
+    background:#024aa9e8;
+    border-radius: 0 15px 15px 0;
+    color: white;
+    font-weight: bold;
+    
+}
+/*Le quitamos el punto a los elementos li */
+li{
+    list-style: none;
+}
+/*Le damos estilo al rotulo de que nos dice en que ventana estamos */
+.Vista {
+    position: fixed;
+    right: 5%;
+    top: 0;
+    font-size: 300%;
+    color: black;
+}
+
+.HeadCabeza h1, .HeadCabeza h3{
+    text-align: center;
+}
+/*Les quitamos la linea de abajo a los elementos a (son las opciones)*/
+a{
+    text-decoration: none;
+    color: white;
+}
+/*Le damos estilo a la SUBCATEGORIAS de las opciones*/
+ul{
+    opacity: 0;
+    display: none;
+    margin-top: 0;
+}
+/*Le quitamos el margen de abajo a las opciones*/
+h3{
+    margin-bottom: 0;
+}
+/*Cuando tengamos el mouse sobre una opcion aparecera sus subopciones*/
+h3:hover + ul{
+    opacity: 1;
+    display: block;
+    transition: 1s ;
+}
+
+/*Para que no desaparescan estas opciones*/
+ul:hover{
+    display: block;
+    opacity: 1;
+}
+/*Le decimos al boton del menu que no se muestre*/
+.Content-BtnEncabezado{
+    display:none;
+}
+
+/*Si el ancho de la ventana es menor de 1108 pixeles*/
+@media screen and (max-width: 1108px) {
+    /*El panel agarrara un 25 porcion del tamaño de la ventana*/
+    .HeadCabeza{
+        width: 25vw;
+    }
+
+}
+
+/*Si el ancho de la ventana es menor de 1108 pixeles*/
+@media screen and (max-width: 848px) {
+    /*El panel se correra completamente a la izquierda*/
+    .HeadCabeza{
+        top: 0;
+        right: 100%;
+        width: 100vw;
+        overflow: hidden;
+        z-index: 10;
+        height: 100vh;
+        transition: 1s ease;
+    }
+
+    /*Si el panel tiene esta clase se correra a al derecha para visualizarse*/
+    .HeadComplete{
+        right: 0;
+        transition: 500ms ease;
+    }
+
+    /*El boton se mostrara */
+    .BtEncabezado{
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        left: 10px;
+        top:  16px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(299deg) brightness(105%) contrast(103%);
+    }
+    .Content-BtnEncabezado{
+        border-radius: 25%;
+        width: 50px;
+        height: 50px;
+        right: 0;
+        top: 0;
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        background-color: blue;
+        z-index: 12;
+        transition: 1s ease-out;
+    }
+    .Content-BtnEncabezado:hover{
+        transform: scale(1.2);
+        transition: 500ms ease;
+    }
+    .Content-BtnEncabezado:active{
+        transform: scale(1.3);
+        transition: 500ms ease;
+    }
+    .Vista{
+        position: relative;
+        display: block;
+        margin: 0 ;
+        margin-left: 50px;
+    }
+    .HeadCabeza h1{
+        margin: 10px 50px;
+        margin-top: 60px;
+    }
+ 
+}

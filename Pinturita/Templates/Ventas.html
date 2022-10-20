@@ -1,0 +1,151 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block Vista %}Ventas{% endblock Vista %}
+<!-- Aqui empieza la seccion de formulario-->
+
+{% block content %}
+<section class="Formulario">
+    <form action="{% url '' %}" method="post">
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Numero_Venta">No de Ventas</label>
+                <br>
+                <input id = "Numero_Venta" type="number" name="NUMERO"> 
+            </div>
+                <div class="Entradas">
+                    <label for="Estapa">Etapa</label>
+                    <br>
+                    <select name="Estapa" id="Estapa">
+                    <option value="Presupuesto">Presupuesto</option>
+                    <option value="Pedido de Venta">Pedido de Venta</option>
+                    <option value="Vendido">Vendido</option>
+                </select>     
+                </div>
+
+        </div>
+        
+        <!-- El div "Filas" contendra 2 entradas (inputs)-->
+        <div class="Filas">
+            <!--El div "Entradas" contiene un label y un input-->
+            <div class="Entradas">
+                <label for="Nit">NIT</label>
+                <br>
+                <input id = "Nit" type="text" name="NIT"> 
+            </div>
+            <div class="Entradas">
+                <label for="Cliente">Cliente</label>
+                <br>
+                <input  id = "Cliente" type="text"name="CLIENTE"> 
+            </div>
+            <div class="Entradas">
+                <label for="Direccion">Direccion</label>
+                <br>
+                <input id = "Direccion" type="text" name="DIRECCION"> 
+            </div>
+        </div>
+
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Bodega">Bodega</label>
+                <br>
+                <input id = "Bodega" type="text" name="Bodega"> 
+            </div>
+            <div class="Entradas">
+                <label for="Creado_por">Creado por</label>
+                <br>
+                <input id = "Creado_por" type="text" name="CREADO"> 
+            </div>
+            <div class="Entradas">
+                <label for="Fecha">Fecha</label>
+                <br>
+                <input id="Fecha" type="datetime-local"name="FECHA">
+            </div>
+
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <div class="Blancocuadro">
+                    <img src="{% static 'Imagenes/Guardar.png' %}" alt="" class="Btn BlancoBt" >
+                </div>
+            </div>    
+        </div>
+        <br>
+        <section class="Consultat"> 
+            <table class="Tabla_input">
+                <tr class="Enc-Tabla">
+                    <th>Cod</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>SubTotal</th>
+                    
+                    <th class="CELDANOP"></th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="number" id="" name="CODIGO">
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value=""></option>
+                            <option value="">
+                                Cafe
+                            </option>
+                            <option value="">Coca</option>
+                        </select>
+                        
+                    </td>
+                    <td>
+                        <input type="number" name="CANTIDAD" id="">
+                    </td>
+                    <td>
+                        <input type="number" name="PRECIO" id="">
+                    </td>
+                    <td>
+                        <input type="number" name="SUBTOTAL" id="">
+                    </td>
+                    <td class="CELDABTN">
+                        <div class="BlancocuadroConsultas">
+                            <img src="{% static 'Imagenes/Desactivar.png' %}" alt="" class="BtRegistro BlancoBt">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="number" name="CODIGO" id="">
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value=""></option>
+                            <option value="">
+                                Cafeaaaaaaaaaaaaaaaaaa
+                            </option>
+                            <option value="">Coca</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" name="CANTIDAD" id="">
+                    </td>
+                    <td>
+                        <input type="number" name="PRECIO" id="">
+                    </td>
+                    <td>
+                        <input type="number" name="SUBTOTAL" id="">
+                    </td>
+                    <td class="CELDABTN">
+                        <div class="BlancocuadroConsultas">
+                            <img src="{% static 'Imagenes/Desactivar.png' %}"alt="" class="BtRegistro BlancoBt">
+                        </div>
+                    </td>
+                </tr>
+                
+            </table>
+            <br>
+            <div class="BlancocuadroConsultas" style="margin-top: 5px;">
+                <img src="{% static 'Imagenes/Mas.png' %}" alt="" class="BtRegistro BlancoBt">
+            </div>
+        </section>
+        <br>
+    </form>
+</section>
+{% endblock content %}

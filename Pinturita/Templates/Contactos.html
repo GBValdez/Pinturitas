@@ -1,0 +1,76 @@
+{% extends 'Base.html' %}
+{%load static%}
+
+<!-- Aqui empieza la seccion de formulario-->
+{% block Vista %}{{Tipo}}{% endblock Vista %}
+
+{% block content %}
+<section class="Formulario">
+    <form action="{% url 'Edicion:Ingresar' URLContac %}" method="POST">
+        {% csrf_token %}
+        <!-- El div "Filas" contendra 2 entradas (inputs)-->
+        
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="ID">ID</label>
+                <br>
+                <input id="ID" type="text" name="ID" value="{{IDNO}}" readonly>
+            </div>
+            <div class="Entradas">
+                <label for="Nombre">Nombre</label>
+                <br>
+                <input id = "Nombre" type="text" name="NOMBRE"> 
+            </div>
+            <div class="Entradas">
+                <label for="Nit">Nit</label>
+                <br>
+                <input id="Nit" type="text" name="NIT">
+            </div>
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Direccion">Direccion</label>
+                <br>
+                <input id = "Direccion" type="text" name="DIRECCION"> 
+            </div>
+            <div class="Entradas">
+                <label for="Numero">Telefono</label>
+                <br>
+                <input id = "Numero" type="tel" name="TELEFONO"> 
+            </div>
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Correo_electronico">Correo</label>
+                <br>
+                <input id = "Correo_electronico" type="email" name="CORREO"> 
+            </div>
+            <div class="Entradas">
+                <label for="Nombre_del_establecimiento">Establecimiento</label>
+                <br>
+                <input id = "Nombre_del_establecimiento" type="text" name="ESTABLECIMIENTO"> 
+            </div>
+        </div>
+        <div class="Filas">
+
+            <div class="Entradas">
+                <div class="Blancocuadro Envio">
+                    <img src="{% static 'Imagenes/Guardar.png' %}" alt="" class="Btn BlancoBt" >
+                    <input type="submit" class="Enviar" value="Enviar" >
+                </div>
+            </div>    
+        </div>
+        <div class="Filas Invisible">
+            {% include 'INPUT_BASE.html'%}
+            <div class="Entradas"> 
+                <label for="Tipo">Tipo</label>
+                <br>
+                <input type="text" id="Tipo" name="TIPO" readonly value="{{Tipo}}">
+            </div>
+        </div>
+        
+        
+
+    </form>
+</section>
+{% endblock content %}

@@ -1,0 +1,148 @@
+{% extends 'Base.html' %}
+{%load static%}
+
+<!-- Aqui empieza la seccion de formulario-->
+{% block Vista %}{{Tipo}}{% endblock Vista %}
+
+{% block content %}
+    <section class="Formulario">
+        <form action="{% url 'Edicion:Ingresar' URLMovimiento %}" method="post">
+            <div class="Filas">
+            <div class="Entradas">
+                <label for="ID">ID</label>
+                <br>
+                <input id = "ID" type="number"name="ID"> 
+            </div>
+            <div class="Entradas">
+                <label for="Estapa">Etapa</label>
+                <br>
+                <select name="Etapa" id="Etapa">
+                <option value="Presupuesto">Presupuesto</option>
+                <option value="Orden de Compra">Orden de Compra</option>
+                <option value="Comprado">Comprado</option>
+            </select>     
+            </div>
+        </div>
+            <!-- El div "Filas" contendra 2 entradas (inputs)-->
+            <div class="Filas">
+                <!--El div "Entradas" contiene un label y un input-->
+                <div class="Entradas">
+                    <label for="Contacto">{{Clase}}</label>
+                    <br>
+                    <input  id = "Contacto" type="text"name="CONTACTO"> 
+                </div>
+                <div class="Entradas">
+                    <label for="Direccion">Direccion</label>
+                    <br>
+                    <input id = "Direccion" type="text"name="DIRECCION"> 
+                </div>
+            </div>
+
+            <div class="Filas">
+                {% if BOD_ENTRADA %}
+                <div class="Entradas">
+                    
+                    <label for="Bodega_Entrada">Bodega Entrada</label>
+                    <br>
+                    <input id = "Bodega_Entrada" type="text"name="BODEGA_ENTRADA"> 
+                </div>
+                {% endif %}
+                {% if BOD_SALIDA %}
+                <div class="Entradas">
+                    <label for="Bodega_Salida">Bodega Salida</label>
+                    <br>
+                    <input id = "Bodega_Salida" type="text"name="BODEGA_SALIDA"> 
+                </div>
+                {% endif %} 
+                <div class="Entradas">
+                    <div class="Blancocuadro">
+                        <img src="{% static 'Imagenes/Guardar.png'%}" alt="" class="Btn BlancoBt" >
+                    </div>
+                </div>   
+            </div>
+            <div class="Filas Invisible">
+                {% include 'INPUT_BASE.html'%}
+                <div class="Entradas">
+                    <label for="Tipo">Tipo</label>
+                    <br>
+                    <input id = "Tipo" type="text"name="TIPO"> 
+                </div>
+            </div>
+            <br>  
+            <section class="Consultat"> 
+                <table class="Tabla_input">
+                    <tr class="Enc-Tabla">
+                        <th>NIT</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Numero</th>
+                        <th>Tipo</th>
+                        
+                        <th class="CELDANOP"></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="NIT" id="">
+                        </td>
+                        <td>
+                            <select name="" id="">
+                                <option value=""></option>
+                                <option value="">Gabriel Benjamin</option>
+                                <option value="">Lester Turcios</option>
+                            </select>
+                            
+                        </td>
+                        <td>
+                            <input type="number" name="DIRECCION" id="">
+                        </td>
+                        <td>
+                            <input type="number" name="NUMERO" id="">
+                        </td>
+                        <td>
+                            <input type="number" name="TIPO" id="">
+                        </td>
+                        <td class="CELDABTN">
+                            <div class="BlancocuadroConsultas">
+                                <img src="{% static 'Imagenes/Desactivar.png'%}" alt="" class="BtRegistro BlancoBt">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="NIT" id="">
+                        </td>
+                        <td>
+                            <select name="" id="">
+                                <option value=""></option>
+                                <option value="">
+                                    Luis Alvarado
+                                </option>
+                                <option value="">Coca</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="DIRECCION" id="">
+                        </td>
+                        <td>
+                            <input type="number" name="NUMERO" id="">
+                        </td>
+                        <td>
+                            <input type="number" name="TIPO" id="">
+                        </td>
+                        <td class="CELDABTN">
+                            <div class="BlancocuadroConsultas">
+                                <img src="{% static 'Imagenes/Desactivar.png'%}" alt="" class="BtRegistro BlancoBt">
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <br>
+                <div class="BlancocuadroConsultas" style="margin-top: 5px;">
+                    <img src="{% static 'Imagenes/Mas.png'%}" alt="" class="BtRegistro BlancoBt">
+                </div>
+            </section>
+        </form>
+        
+    </section>
+{% endblock content %}    

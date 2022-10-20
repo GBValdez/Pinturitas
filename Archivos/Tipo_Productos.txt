@@ -1,0 +1,2 @@
+{'CREADOR': 'GBValdez', 'ID': 1, 'Nombre': 'Oleo', 'Dia': '19/10/2022 00:28:22'}
+{'CREADOR': 'GBValdez', 'ID': 2, 'Nombre': 'Resina', 'Dia': '19/10/2022 00:28:55'}

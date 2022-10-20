@@ -1,0 +1,110 @@
+{% extends 'Base.html' %}
+{%load static%}
+
+<!-- Aqui empieza la seccion de formulario-->
+{% block Vista %}Productos{% endblock Vista %}
+
+{% block content %}
+<section class="Formulario">
+    {% include 'Individual.html'%}
+    <form action="{% url 'Edicion:Ingresar' 'Productos_Producto' %}" method="POST">
+        {% csrf_token %}
+        <!-- El div "Filas" contendra 2 entradas (inputs)-->
+            <!--El div "Entradas" contiene un label y un input-->
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="ID">ID</label>
+                <br>
+                <input id = "ID" type="number"name="ID" value="{{IDNO}}" readonly required>
+            </div> 
+            <div class="Entradas">
+                <label for="Nombre">Nombre</label>
+                <br>
+                <input id = "Nombre" type="text"name="NOMBRE" required>
+            </div> 
+            <div class="Entradas">
+                <label for="Marca">Marca</label>
+                <br>
+                <input type="text" list="List_Marca" class="Listas" name="MARCA" data-direccion="Productos" data-archivo="Marca">
+                <datalist id="List_Marca">
+                    {% for  i in Marca %}
+                    <option value="{{i.Nombre}}, {{i.ID}}"></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Tipo">Tipo</label>
+                <br>
+                <input type="text" list="List_Tipo" class="Listas" name="TIPO" data-direccion="Productos" data-archivo="Tipo_Productos">
+                <datalist id="List_Tipo">
+                    {% for  i in Tipos %}
+                    <option value="{{i.Nombre}}, {{i.ID}}"></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class="Entradas">
+                <label for="Precio_costo">Precio costo</label>
+                <br>
+                <input id = "Precio_costo" type="number"name="COSTO" min=0 > 
+            </div>
+            <div class="Entradas">
+                <label for="Precio_venta">Precio Venta</label>
+                <br>
+                <input id = "Precio_venta" type="number"name="PRECIO" min=0> 
+            </div>
+            
+        </div>
+        <div class="Filas">
+            <div class="Entradas">
+                <label for="Ganancia">Ganancia</label>
+                <br>
+                <input id = "Ganancia" type="text"name="GANANCIA" readonly>
+            </div>
+            <div class="Entradas">
+                <label for="Medida">Unidad de medida</label>
+                <br>
+                <input type="text" list="List_Medida" class="Listas" name="MEDIDA" data-direccion="Productos" data-archivo="Producto_Medida">
+                <datalist id="List_Medida">
+                    {% for  i in Medida %}
+                    <option value="{{i.Nombre}}, {{i.ID}}"></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class="Entradas">
+                <label for="Estado">Estado</label>
+                <br>
+                <select name="Estado" id="Estado" name="ESTADO">
+                    <option value="Activo"> Activo </option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+        </div>
+        <div class="Filas">
+            <div class="Entradas"> 
+                <label for="Descripcion">Descripcion</label>
+                <br>
+                <textarea name="DESCRIPCION" id="Descripcion" cols="25" rows="5"></textarea>
+            </div>
+            <div class="Entradas">
+                <div class="Blancocuadro Envio">
+                    <img src="{% static 'Imagenes/Guardar.png' %}" alt="" class="Btn BlancoBt" >
+                    <input type="submit" class="Enviar" value="Enviar">
+                </div>
+            </div>    
+        </div>
+        <div class="Filas Invisible">
+        {% include 'INPUT_BASE.html'%}
+    </div>
+    </div>
+
+        
+
+    </form>
+</section>
+<script src="{% static '/Scripts/Listas.js' %}"></script>
+<script src="{% static '/Scripts/Producto.js' %}"></script>
+
+{% endblock content %}

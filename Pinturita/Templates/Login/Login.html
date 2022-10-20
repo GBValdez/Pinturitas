@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinturita Feliz: Login</title>
+    <link rel="stylesheet" href="{% static 'CSS/Login.css'%}">
+</head>
+
+<body>
+<div class="contenedor_de_fondo">
+    <img src="{% static 'Imagenes/Fondo.jpg' %}" alt="" class="Fondo">
+</div>    
+<div class="Todo">
+
+
+<div class="Form">
+<header>
+    <H1>MI PINTURITA BONITA</H1>
+</header>
+<main>
+    <div>
+        <div class="Inicio">
+            <p class="Ini">Iniciar Sesión</p>
+            <img src="{% static 'Imagenes/Login.png' %}" alt="Imagen de login" class="Logo">
+        </div>
+        <div class="Linea"></div>
+    </div>
+    <div>
+        <p class="Labels">
+            Usuario
+        </p>
+        <input type="text" name="Usuario" id="Usuario" class="Textbox">
+        <p class="Labels">
+            Password
+        </p>
+        <input type="password" name="Usuario" id="Usuario" class="Textbox">
+        <input type="button" value="Iniciar" class="Boton">
+    </div>
+</main>
+</div>
+</div>
+</body>
+
+</html>

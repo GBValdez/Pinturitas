@@ -1,0 +1,85 @@
+.contenedor_de_fondo
+{
+    z-index: -100;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*Le damos estilos al img de fondo */
+.Fondo
+{
+height: 100%;
+width: auto;
+}
+body{
+    background: black;
+    color: white;
+}
+
+.Logo{
+    transform: translateY(7px);
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    filter: invert(100%) sepia(0%) saturate(7491%) hue-rotate(288deg) brightness(101%) contrast(100%);
+}
+.Todo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+header{
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.61);
+    width: 90%;
+    padding: 4px;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin: 30px;
+    font-size: 100%;
+    text-align: center;
+}
+main{
+    text-align: left;
+    background: rgba(88, 50, 88, 0.89);
+    border: 3px solid white;
+    width: 250px;
+    padding: 15px;
+    padding-left: 50px;
+    margin: 10px;
+    border-radius: 7%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.Ini{
+    display: inline-block;
+    margin: 0;
+    font-size: 120%;
+    font-weight: bold;
+}
+.Linea{
+    border-bottom: 3px solid white;
+    width: 70px;
+    transform: translateX(10px);
+    margin-top: 7px;    
+}
+.Boton{
+    display: block;
+    margin-top: 10px;
+    width: 70px;
+    height: 20px;
+}
+.Inicio{
+    margin: 0;
+}
+.Labels{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.Textbox{
+    width: 90%;
+}

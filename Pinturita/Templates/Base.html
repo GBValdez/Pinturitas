@@ -1,0 +1,93 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi pinturita Bonita</title>
+    <!-- Nos conectaremos al css que contiene los estilos para todos los inputs-->
+    <link rel="stylesheet" href="{% static '/CSS/base.css' %}">
+    <!-- Nos conectaremos al css que contiene los estilos base (panel y fondo)-->
+    <link rel="stylesheet" href="{% static '/css/Input.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/Tablas.css' %}">
+</head>
+<body>
+    <!--El siguiente div contiene una imagen para hacerla de fondo-->
+    <div class = "contenedor_de_fondo">
+        <img class="Fondo" src="{%  static 'Imagenes/a.png' %}" alt="Fondo">
+    </div>
+    <!-- Estos elementos son los del encabezado-->
+    <div class="Content-BtnEncabezado">
+        <img src="Imagenes/Menu.png" alt="" class="BtEncabezado">
+    </div>
+    <header>
+        <div class="Content-BtnEncabezado" id="Btn_Menu">
+            <img src="{% static 'Imagenes/Menu.png' %}" alt="Imagen del boton del Menu" class="BtEncabezado">
+        </div>
+        <div class="HeadCabeza" id="HeadCabeza">
+        <h1>Mi Pinturita Bonita</h1>
+            <nav>
+                <h3>Usuario</h3>
+                <ul>
+                    <li>
+                        <a href="{% url 'Usuarios_Consulta' %}">Usuario</a>
+                    </li>
+                </ul>
+                <h3>Invetario</h3>
+                <ul>
+                    <li>
+                        <a href="{% url 'Producto_Consulta' %}">Productos</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Bodegas_Consulta' %}">Bodegas</a>
+                    </li>
+                </ul>
+                <h3>Contactos</h3>
+                <ul>
+                    <li>
+                        <a href="{% url 'Contactos_Consulta' 0 %}">Proveedores</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Contactos_Consulta' 1 %}">Clientes</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Contactos_Consulta' 2 %}">Empleados</a>
+                    </li>
+                </ul>
+                <h3>Movimientos</h3>
+                <ul>
+                    <li>
+                        <a href="{% url 'Movimiento_Consulta' 0 %}">Compras</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Movimiento_Consulta' 1 %}">Ventas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Movimiento_Consulta' 2 %}">Interno</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Facturas_Consulta' %}">Facturas</a>
+                    </li>
+                </ul>
+                <h3>Reportes</h3>
+                <ul>
+                    <li>
+                        <a href="{% url 'Reporte_Inventario' %}">Inventarios</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Usuarios_Consulta' %}">Ventas</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Este elemento es el que dice en que ventana te encuentras-->
+        <h2 class="Vista">{% block Vista %}{% endblock%}</h2>
+    </header>
+    {% block content%}
+    {% endblock%}
+    <script src="{% static '/Scripts/Base.js' %}"></script>
+
+</body>
+</html>

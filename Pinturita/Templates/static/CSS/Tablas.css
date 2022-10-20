@@ -1,0 +1,148 @@
+/*Estilos para las vistas de consulta*/
+
+/*Le daremos estilos a la tabla donde tendremos nuestros datos*/
+table{
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 100%;
+    display: inline-table;
+}
+
+/*Le daremos estilos a la tabla donde tendremos nuestros datos*/
+.Enc-Tabla{
+}
+
+/*Estilos para el encabezado y las filas*/
+th,td{
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Estilos para el encabezado*/
+th{
+    padding: 10px;
+    font-size: 13px;
+    color:white;
+    text-overflow: hidden;
+    text-overflow: ellipsis;
+    background: #004badd9;
+    border: 3px solid #004badd9;
+}
+
+/*Estilos para las filas*/
+td{
+    padding: 8px;
+    border: 3px solid black;
+    background: rgba(255, 255, 255, 0.77);
+    font-size: 11px;
+    word-break: break-all;
+}
+
+/*Estilos para la seccion donde se encuntra la tabla , ajustara la tabla en el centro
+horizontalmente*/
+.Consultat{
+    position: absolute;
+    box-sizing: border-box;
+    width: 80vw;
+    right: 0;
+    padding: 0 30px;
+}
+
+/*Estilos para el formulario de busqueda*/
+.FormuCon{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Estilos para el contenedor del label y los inputs*/
+.EntraConsulta{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/*Estilos para el contenedor de unicamente de los inputs (textbox y boton)*/
+.Inputs{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+/*A los hijos de este contenedor les damos un margen vertical de 7px*/
+
+.EntraConsulta *{
+    margin: 0 7px;
+}
+/*Si el ancho de la ventana es menor que 461 pixeles no se mostrara la ultima columna*/
+.BlancocuadroConsultas{
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    margin: 0px 2px;
+    cursor: pointer
+}
+.BlancocuadroConsultas img{
+    width:  15px;
+    height: 15px;
+    margin: 0;
+}
+
+.BtRegistro{
+    height: 30px;
+    width: 30px;
+    margin: 0;
+}
+@media screen and (max-width: 460px) {
+    .Consultat{
+        overflow-x:scroll
+    }
+}
+
+/*
+@media screen and (max-width: 460px) {
+    tr td:nth-last-child(2) , tr th:nth-last-child(2){
+        display: none;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    tr td:nth-last-child(3) , tr th:nth-last-child(3){
+        display: none;
+    }
+}
+*/
+@media screen and (max-width: 1108px) {
+    /*El panel agarrara un 25 porcion del tamaño de la ventana*/
+    .Consultat{
+        width: 75%;
+    }
+
+}
+@media screen and (max-width: 848px) {
+    .Consultat{
+        width: 100%;
+    }
+}
+/*Cuando el ancho de la ventana sea menor de 407px*/
+
+
+.CELDABTN{
+    border: 0px;
+    background: transparent;
+    padding: 0 4px;
+    display: flex;
+}
+.CELDANOP{
+    display: none;
+}
+
+.Formulario .Consultat{
+    width: 100%;
+}

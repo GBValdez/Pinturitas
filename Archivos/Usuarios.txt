@@ -1,0 +1,4 @@
+{'ID': '1', 'CONTACTO': ' 1', 'USERNAME': 'GBValdez', 'PASSWORD': 'QQ', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '16/10/2022 01:59:53'}
+{'ID': '2', 'CONTACTO': '', 'USERNAME': 'd', 'PASSWORD': 'w', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '17/10/2022 01:30:14'}
+{'ID': '3', 'CONTACTO': '', 'USERNAME': 'k', 'PASSWORD': 'k', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '17/10/2022 01:30:20'}
+{'ID': '4', 'CONTACTO': '', 'USERNAME': 'j', 'PASSWORD': 'j', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '17/10/2022 01:30:28'}

@@ -1,0 +1,75 @@
+{% extends 'Base.html' %}
+{%load static%}
+<!-- Aqui empieza la seccion de formulario-->
+{% block Vista %}Usuarios{% endblock Vista %}
+{% block content %}
+    <section class="Formulario">
+        {% include 'Individual.html'%}
+        <form action="{% url 'Edicion:Ingresar' 'Usuarios_Usuarios'  %}" method="POST">
+            {% csrf_token %}
+            <!-- El div "Filas" contendra 2 entradas (inputs)-->
+            <div class="Filas">
+                <!--El div "Entradas" contiene un label y un input-->
+                <div class="Entradas">
+                    <label for="ID">ID</label>
+                    <br>
+                    <input id = "ID" type="number" name="ID" required readonly value="{{IDNO}}"> 
+                </div>
+                <div class="Entradas">
+                    <label for="Contacto">Contacto</label>
+                    <br>
+                    <input type="text" list="List_Empleados" class="Listas" name="CONTACTO" data-direccion="Contactos_Empleados" data-archivo="Dir">
+                    <datalist id="List_Empleados">
+                        {% for  i in Empleados  %}
+                        <option value="{{i.NOMBRE}}, {{i.ID}}">{{i.CORREO}}</option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+            </div>
+            <div class="Filas">
+                <div class="Entradas">
+                    <label for="Nombre">UserName</label>
+                    <br>
+                    <input  id = "Nombre" type="text" name="USERNAME" required> 
+                </div>
+                <div class="Entradas">
+                    <label for="Contrasena">Contraseña</label>
+                    <br>
+                    <input id = "Contrasena" type="password" name="PASSWORD" required> 
+                </div>
+            </div>
+            <div class="Filas">
+                <div class="Entradas">
+                    <label for="Rol">Rol</label>
+                    <br>
+                    <select name="Rol" id="Rol" name="ROL" required>
+                        <option value="Vendedor">Vendedor</option>
+                        <option value="Bodeguero">Bodeguero</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+                </div>
+                <div class="Entradas"> 
+                    <label for="Estado">Estado</label>
+                    <br>
+                    <select name="Estado" id="Estado" name="Estado" required>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select> 
+                </div>
+            </div>
+            
+            <div class="Filas">
+                <div class="Entradas">
+                    <div class="Blancocuadro Envio">
+                        <img src="{% static 'Imagenes/Guardar.png' %}" alt="" class="Btn BlancoBt" >
+                        <input type="submit" class="Enviar" value="Enviar">
+                    </div> 
+                </div>    
+            </div>
+            <div class="Filas Invisible">
+                {% include 'INPUT_BASE.html'%}
+            </div>
+        </form>
+    </section>
+    <script src="{% static '/Scripts/Listas.js' %}"></script>
+{% endblock content %}

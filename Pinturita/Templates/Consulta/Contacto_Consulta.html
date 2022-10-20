@@ -1,0 +1,52 @@
+{% extends 'Base.html' %}
+<!-- Tabla de consulta-->
+{%load static%}
+{% block Vista %}{{Tipo}}{% endblock Vista %}
+
+{% block content %}
+<section class="FormuCon">
+    <form action="" method="post">
+        <div class="Fila">
+            <div class="EntraConsulta">
+                <label for="Codigo">Código</label>
+                <div class="Inputs">
+                    <input type="text" name="Codigo" id="">
+                    <img src="{% static 'Imagenes/Buscar.png' %}" alt="Imagen de lupa" class="Btn">
+                </div>
+                
+            </div>
+        </div>
+    </form>
+</section>
+
+<section class="Consultat"> 
+    <table>
+        <tr class="Enc-Tabla">
+            <th>NIT</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Numero</th>
+            <th>Tipo</th>
+            <th class="CELDANOP"></th>
+        </tr>
+        <tr>
+            <td>12345678</td>
+            <td>Ricardo Valdez</td>
+            <td>Lote 20 Manzana D Zona 10 Villa Hermosa</td>
+            <td>2467 8765</td>
+            <td>Cliente</td>
+            <td class="CELDABTN">
+                <div class="BlancocuadroConsultas">
+                    <img src="{% static 'Imagenes/Editar.png' %}"alt="" class="BtRegistro BlancoBt" style="height: 20px; width: 20px;">
+                </div>
+                <div class="BlancocuadroConsultas">
+                    <img src="{% static 'Imagenes/Desactivar.png' %}" alt="" class="BtRegistro BlancoBt">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <a class="BlancocuadroConsultas" href="/Edicion/Contactos/{{Tipo}}">
+        <img src="{% static 'Imagenes/Mas.png' %}"  alt="" class="BtRegistro BlancoBt">
+    </a>
+</section>
+{% endblock content %}
