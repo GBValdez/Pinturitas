@@ -6,7 +6,9 @@
 
 {% block content %}
 <section class="Formulario">
+    <div style="display: none;">
     {% include 'Individual.html'%}
+    </div>
     <form action="{% url 'Edicion:Ingresar' 'Productos_Producto' %}" method="POST">
         {% csrf_token %}
         <!-- El div "Filas" contendra 2 entradas (inputs)-->
