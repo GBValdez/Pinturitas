@@ -8,6 +8,9 @@
 {% block content %}
 <section class="Formulario" style="align-items: baseline; height: 100%;">
     <form action="{% url 'Edicion:Ingresar' 'Bodegas_Bodegas' %}" method="post">
+        <div style="display: none;">
+            {% include 'Individual.html'%}
+            </div>
         <!-- El div "Filas" contendra 2 entradas (inputs)-->
 
         <div class="Filas">
@@ -66,16 +69,12 @@
             <table class="Tabla_input" id="Tabla">
                 <tr class="Enc-Tabla">
                     <th>Producto</th>
-                    <th>Cod</th>
                     <th>Stock</th>
                     <th class="CELDANOP"></th>
                 </tr>
                 <tr id="RegistroTabla">
                     <td>
-                        <input type="text" list="List_Productos" class="Listas" name="PRODUCTO" data-direccion="Contactos_Empleados" data-archivo="Dir">
-                    </td>
-                    <td>
-                        <input type="number" name="CODIGO" id="" readonly>
+                        <input type="text" list="List_Productos" class="Listas" name="PRODUCTO" data-direccion="Productos" data-archivo="Dir">
                     </td>
                     <td>
                         <input type="number" name="STOCK" id="" min="0">
@@ -90,7 +89,7 @@
             </table>
             <datalist id="List_Productos">
                 {% for Prod in Productos %}
-                <option value="{{Prod.NOMBRE}}"></option>
+                <option value="{{Prod.NOMBRE}} , {{Prod.ID}}" data-Value="" >{{Prod.DESCRIPCION}}</option>
                 {% endfor %}
             </datalist>
             <br>

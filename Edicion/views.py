@@ -42,21 +42,32 @@ def Ingresar(request,Tipo):
     return redirect("/Edicion/"+Palabras[0])
 
 def Ingresar_unicos(request,Nom_Archivo,Valor,Vista):
+    #Verifica si el nombre del archivo no es Dir
     if Nom_Archivo!="Dir":
+        #crea el diccionario 
         Dic=Crear_Dic_Base(Nom_Archivo)
+        #cambiamos el IDNO a ID
         Dic["ID"]= Dic["IDNO"]
+        #eliminamos IDNO
         del Dic["IDNO"]
+        #colocamos valor al Nombre
         Dic["Nombre"]=Valor
+        #Ingresamos la fecha y hora que se esta ejecutando
         Dic['Dia']= datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        #guardamos la info del diccionario
         Arch= Archivo(Nom_Archivo)
         Arch.Insertar(Dic)
+        #la url nos dirige denuevo a la vista
     url=Vista.replace("_","/")
     return redirect("/Edicion/"+url)
 
 
 def Usuario_edicion(request):
+    #Creamos nuestro diccionario, que pueda el numero de registro que tiene el archivo y el nombre del creador
     Datos= Crear_Dic_Base("Usuarios")
+    #Llamamos la informacion de contacto y extrae la informacion especifica de contacto
     Datos["Empleados"]=Archivo("Contacto").Extraer({"KEY":"TIPO","VALOR":"Empleados"})  # type: ignore
+    #Muestra el archivo html o la vista y le pasa la informacion del diccionario
     return render(request,"Usuario.html",Datos)
 
 def Clientes_edicion(request):

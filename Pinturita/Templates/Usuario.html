@@ -1,11 +1,19 @@
+<!--Extends Base.html llama el html de base esto sirve para evitar la repeticion del codigo en esta vista
+
+-->
 {% extends 'Base.html' %}
+<!--load static permite cargar archivos que no sean adaptables con django como es css y javascrip-->
 {%load static%}
 <!-- Aqui empieza la seccion de formulario-->
+<!-- block vista permite visualizar el titulo dela vista que aparece en la parte superior derecha-->
 {% block Vista %}Usuarios{% endblock Vista %}
+<!-- Block content aqui permite mostrar todas las variables y campos creados en la vista-->
 {% block content %}
     <section class="Formulario">
+        <!-- include funciona para incluir el html externo al que estamos-->
         {% include 'Individual.html'%}
         <form action="{% url 'Edicion:Ingresar' 'Usuarios_Usuarios'  %}" method="POST">
+        <!-- csrf genera una idetificacion unica por cada informacion creada-->   
             {% csrf_token %}
             <!-- El div "Filas" contendra 2 entradas (inputs)-->
             <div class="Filas">
@@ -18,10 +26,12 @@
                 <div class="Entradas">
                     <label for="Contacto">Contacto</label>
                     <br>
-                    <input type="text" list="List_Empleados" class="Listas" name="CONTACTO" data-direccion="Contactos_Empleados" data-archivo="Dir">
+                    <!-- data-direccion es para indicarn al programa hacia donde nos va a llevar si la informacion ingresada no existe 
+                    y data-archivo indica al programa en donde guardar el valor no existente si no existe aun-->
+                    <input type="text" id="Contacto" list="List_Empleados" class="Listas" name="CONTACTO" data-direccion="Contactos_Empleados" data-archivo="Dir" >
                     <datalist id="List_Empleados">
                         {% for  i in Empleados  %}
-                        <option value="{{i.NOMBRE}}, {{i.ID}}">{{i.CORREO}}</option>
+                        <option value="{{i.NOMBRE}}, {{i.ID}}" >{{i.CORREO}}</option>
                         {% endfor %}
                     </datalist>
                 </div>
