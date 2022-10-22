@@ -1,0 +1,5 @@
+{'PRODUCTO': ' 4', 'BODEGA': '1'}
+{'PRODUCTO': ' 1', 'BODEGA': '2'}
+{'PRODUCTO': ' 3', 'BODEGA': '3'}
+{'PRODUCTO': ' 3', 'BODEGA': '4'}
+{'PRODUCTO': ' 5', 'BODEGA': '5'}

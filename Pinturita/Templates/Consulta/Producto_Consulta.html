@@ -19,46 +19,7 @@
 </section>
 
 <section class="Consultat"> 
-    <table>
-        <tr class="Enc-Tabla">
-            <th>Cod</th>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Contacto</th>
-            <th>Correo</th>
-            <th class="CELDANOP"></th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Gabriel Benjamin Valdez De León</td>
-            <td>Bodeguero</td>
-            <td>12345678</td>
-            <td>gabrielbenjaminvaldezdeleon@gmail.com</td>
-            <td class="CELDABTN">
-                <div class="BlancocuadroConsultas">
-                    <img src="{% static 'Imagenes/Editar.png' %}" alt="" class="BtRegistro BlancoBt" style="height: 20px; width: 20px;">
-                </div>
-                <div class="BlancocuadroConsultas">
-                    <img src="{% static 'Imagenes/Desactivar.png' %}" alt="" class="BtRegistro BlancoBt">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Gabriel Benjamin Valdez De León</td>
-            <td>Bodeguero</td>
-            <td>12345678</td>
-            <td>gabrielbenjaminvaldezdeleon@gmail.com</td>
-            <td class="CELDABTN">
-                <div class="BlancocuadroConsultas">
-                    <img src="{% static 'Imagenes/Editar.png' %}"  alt="" class="BtRegistro BlancoBt" style="height: 20px; width: 20px;">
-                </div>
-                <div class="BlancocuadroConsultas">
-                    <img src="{% static 'Imagenes/Desactivar.png' %}" alt="" class="BtRegistro BlancoBt">
-                </div>
-            </td>
-        </tr>
-    </table>
+    {% include 'Consulta/Tabla_Consulta.html'%}
     <a class="BlancocuadroConsultas" href="{% url 'Edicion:Productos' %}">
         <img src="{% static 'Imagenes/Mas.png' %}"  alt="" class="BtRegistro BlancoBt">
     </a>

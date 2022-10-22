@@ -103,10 +103,11 @@ def Movimiento_Edicion(request,Tipo,Clase):
     Datos["BOD_ENTRADA"]= Clase!=1
     Datos["BOD_SALIDA"]= Clase!=0
     Plural= ["Proveedores","Clientes","Empleados"] [Clase]
+    No=str(Clase)
     Clase=["Proveedor","Cliente","Empleado"][Clase]
     Datos["Tipo"]=Tipo
     Datos["Clase"]=Clase
-    Datos["URLMovimiento"]="Movimientos-"+Tipo+"-"+Clase+"_Transaccion_Transaccion2producto"
+    Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"_Transaccion_Transaccion2producto"
     Datos["Bodegas"]= Archivo("Bodegas").Extraer()
     Datos["Contactos"]= Archivo("Contacto").Extraer({"KEY":"TIPO","VALOR":Plural})
     Datos["Productos"]=Archivo("Producto").Extraer()

@@ -8,6 +8,7 @@
     <section class="Formulario">
         {% include 'Individual.html'%}
         <form action="{% url 'Edicion:Ingresar' URLMovimiento %}" method="post">
+            {% csrf_token %}
             <div class="Filas">
             <div class="Entradas">
                 <label for="ID">ID</label>
@@ -60,9 +61,10 @@
                 </div>
                 {% endif %} 
                 <div class="Entradas">
-                    <div class="Blancocuadro">
-                        <img src="{% static 'Imagenes/Guardar.png'%}" alt="" class="Btn BlancoBt" >
-                    </div>
+                    <div class="Blancocuadro Envio">
+                        <img src="{% static 'Imagenes/Guardar.png' %}" alt="" class="Btn BlancoBt" >
+                        <input type="submit" class="Enviar" value="Enviar">
+                    </div> 
                 </div>   
             </div>
             <div class="Filas Invisible">
@@ -70,7 +72,7 @@
                 <div class="Entradas">
                     <label for="Tipo">Tipo</label>
                     <br>
-                    <input id = "Tipo" type="text"name="TIPO"> 
+                    <input id = "Tipo" type="text"name="TIPO" value="{{Tipo}}"> 
                 </div>
             </div>
             <br>  
