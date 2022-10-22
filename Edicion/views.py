@@ -102,10 +102,14 @@ def Movimiento_Edicion(request,Tipo,Clase):
     Datos=Crear_Dic_Base("Transaccion")
     Datos["BOD_ENTRADA"]= Clase!=1
     Datos["BOD_SALIDA"]= Clase!=0
-    Clase=["Cliente","Proveedor","Empleado"][Clase]
+    Plural= ["Proveedores","Clientes","Empleados"] [Clase]
+    Clase=["Proveedor","Cliente","Empleado"][Clase]
     Datos["Tipo"]=Tipo
     Datos["Clase"]=Clase
-    Datos["URLMovimiento"]="Movimientos-"+Tipo+"-"+Clase+"_Transaccion_Transaccion2producto" 
+    Datos["URLMovimiento"]="Movimientos-"+Tipo+"-"+Clase+"_Transaccion_Transaccion2producto"
+    Datos["Bodegas"]= Archivo("Bodegas").Extraer()
+    Datos["Contactos"]= Archivo("Contacto").Extraer({"KEY":"TIPO","VALOR":Plural})
+    Datos["Productos"]=Archivo("Producto").Extraer()
     return render(request,"Movimiento.html",Datos)
 
 def  Contactos_edicion(request,Tipo):
