@@ -41,8 +41,11 @@ class Archivo():
         return Esta
     
     #
-    def Insertar(self,Info) -> None:
-        if not self.Existe("ID",Info):  # type: ignore
+    def Insertar(self,Info,Comprobacion:bool=True) -> None:
+        Entrar:bool=True
+        if Comprobacion:
+            Entrar=not self.Existe("ID",Info)
+        if Entrar:  
             Arc=open(self.RUTA,"a")
             Arc.write(str(Info)+"\n")
             Arc.close()

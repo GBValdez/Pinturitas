@@ -7,7 +7,8 @@
 {% block Vista %} Bodegas {% endblock Vista %}
 {% block content %}
 <section class="Formulario" style="align-items: baseline; height: 100%;">
-    <form action="{% url 'Edicion:Ingresar' 'Bodegas_Bodegas' %}" method="post">
+    <form action="{% url 'Edicion:Ingresar' 'Bodegas_Bodegas_Bodega2producto' %}" method="post">
+        {% csrf_token %}
         <div style="display: none;">
             {% include 'Individual.html'%}
             </div>
@@ -17,19 +18,19 @@
             <div class="Entradas">
                 <label for="ID">ID</label>
                 <br>
-                <input id = "ID" type="number" namw="ID"> 
+                <input id = "ID" type="number" name="ID" readonly required value="{{IDNO}}"> 
             </div>
             <div class="Entradas">
                 <label for="Nombre">Nombre</label>
                 <br>
-                <input  id = "Nombre" type="text" name="Nombre"> 
+                <input  id = "Nombre" type="text" name="Nombre" required> 
             </div>
         </div>
         <div class="Filas">
             <div class="Entradas">
                 <label for="Estado">Estado</label>
                 <br>
-                <select name="Estado" id="Estado">
+                <select name="Estado" id="Estado" required>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select> 
@@ -37,7 +38,7 @@
             <div class="Entradas">
                 <label for="Ventas">Ventas</label>
                 <br>
-                <select name="Ventas" id="Ventas">
+                <select name="Ventas" id="Ventas" required>
                     <option value="Verdadero">Verdadero</option>
                     <option value="Falso">Falso</option>
                 </select>
@@ -47,16 +48,17 @@
             <div class="Entradas">
                 <label for="Ubicacion">Ubicacion</label>
                 <br>
-                <textarea name="UBICACION" id="Ubicacion" cols="30" rows="4"></textarea> 
+                <textarea name="UBICACION" id="Ubicacion" cols="30" rows="4" required></textarea> 
             </div>
             <div class="Entradas"> 
                 <label for="Descripcion">Descripcion</label>
                 <br>
-                <textarea name="DESCRIPCION" id="Descripcion" cols="30" rows="4"></textarea>
+                <textarea name="DESCRIPCION" id="Descripcion" cols="30" rows="4" required></textarea>
             </div>
             <div class="Entradas">
-                <div class="Blancocuadro">
-                    <img src="{% static 'Imagenes/Guardar.png'%}" alt="" class="Btn BlancoBt" >
+                <div class="Blancocuadro Envio">
+                    <img src="{% static 'Imagenes/Guardar.png' %}" alt="" class="Btn BlancoBt" >
+                    <input type="submit" class="Enviar" value="Enviar">
                 </div>  
             </div>
         </div>
@@ -74,10 +76,10 @@
                 </tr>
                 <tr id="RegistroTabla">
                     <td>
-                        <input type="text" list="List_Productos" class="Listas" name="PRODUCTO" data-direccion="Productos" data-archivo="Dir">
+                        <input type="text" list="List_Productos" class="Listas" name="_PRODUCTO" data-direccion="Productos" data-archivo="Dir" required>
                     </td>
                     <td>
-                        <input type="number" name="STOCK" id="" min="0">
+                        <input type="number" name="_STOCK" id="" min="0" required>
                     </td>
                     
                     <td class="CELDABTN">

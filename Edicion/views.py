@@ -3,6 +3,7 @@ from importlib.resources import path
 from re import A
 import string
 from tkinter import Place
+from typing import List
 from django.conf import Settings
 from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
@@ -13,9 +14,26 @@ import datetime
 DIRECCION = Path(__file__).resolve().parent.parent
 print("Direccion papu" + str(DIRECCION))
 
-def Obtener_dic(papu):
+def Obtener_dic(papu,Archimas):
     if papu.method=="POST":
         Dic= papu.POST.dict()
+        if Archimas!="":
+            Lista= []
+            Eliminar=[]
+            Archivito= Archivo(Archimas)
+            for llave in Dic.keys():
+                if llave[0]=="_":
+                    Registros= papu.POST.getlist(llave)
+                    Eliminar.append(llave)
+                    for j in range(0,len(Registros)):
+                        if len(Lista)-1< j:
+                            Lista.append({})
+                        Lista[j][llave[1:len(llave)]]= Registros[j]
+            for llave in Eliminar:
+                del Dic[llave]
+            for registros in Lista:
+                registros["BODEGA"]=Dic["ID"]
+                Archivito.Insertar(registros,False)
         del(Dic['csrfmiddlewaretoken'])
         return Dic
     return NULL
@@ -31,14 +49,20 @@ def Bodega_edicio(request):
     Datos["Productos"]= Archivo("Producto").Extraer()
     return render(request,"Bodegas.html",Datos)
 
+
+
 def Ingresar(request,Tipo):
     Palabras = Tipo.replace("-","/")
     Palabras= Palabras.split("_")
-    Dic=Obtener_dic(request)
+    ArchiMAS:string=""
+    if len(Palabras)==3:
+        ArchiMAS=Palabras[2]
+        
+    Dic=Obtener_dic(request,ArchiMAS)
     if Dic!=NULL:
         Dic['Dia']= datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         Usuario= Archivo(Palabras[1])
-        Usuario.Insertar(Dic)
+        Usuario.Insertar(Dic,True)
     return redirect("/Edicion/"+Palabras[0])
 
 def Ingresar_unicos(request,Nom_Archivo,Valor,Vista):
@@ -75,13 +99,13 @@ def Clientes_edicion(request):
     return render(request,"Clientes.html")
 
 def Movimiento_Edicion(request,Tipo,Clase):
-    Datos=Crear_Dic_Base("Transaccion_Pinturas")
+    Datos=Crear_Dic_Base("Transaccion")
     Datos["BOD_ENTRADA"]= Clase!=1
     Datos["BOD_SALIDA"]= Clase!=0
     Clase=["Cliente","Proveedor","Empleado"][Clase]
     Datos["Tipo"]=Tipo
     Datos["Clase"]=Clase
-    Datos["URLMovimiento"]="Movimientos-"+Tipo+"-"+Clase+"_Transaccion_Pinturas" 
+    Datos["URLMovimiento"]="Movimientos-"+Tipo+"-"+Clase+"_Transaccion_Transaccion2producto" 
     return render(request,"Movimiento.html",Datos)
 
 def  Contactos_edicion(request,Tipo):
