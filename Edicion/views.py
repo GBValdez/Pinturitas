@@ -1,14 +1,7 @@
 from asyncio.windows_events import NULL
-from importlib.resources import path
-from re import A
 import string
-from tkinter import Place
-from typing import List
-from django.conf import Settings
 from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect
-import os
-from Pinturita.Archivos  import Archivo
+from Pinturita.Archivos  import Archivo, CONDICION as Condi
 from pathlib import Path
 import datetime
 DIRECCION = Path(__file__).resolve().parent.parent
@@ -46,7 +39,7 @@ def Crear_Dic_Base(Ruta):
 
 def Bodega_edicio(request):
     Datos= Crear_Dic_Base("Bodegas")
-    Datos["Productos"]= Archivo("Producto").Extraer()
+    Datos["Productos"]= Archivo("Producto").Extraer()["Registros"]
     return render(request,"Bodegas.html",Datos)
 
 
@@ -90,7 +83,7 @@ def Usuario_edicion(request):
     #Creamos nuestro diccionario, que pueda el numero de registro que tiene el archivo y el nombre del creador
     Datos= Crear_Dic_Base("Usuarios")
     #Llamamos la informacion de contacto y extrae la informacion especifica de contacto
-    Datos["Empleados"]=Archivo("Contacto").Extraer({"KEY":"TIPO","VALOR":"Empleados"})  # type: ignore
+    Datos["Empleados"]=Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":"Empleados","COND":Condi["="]}])["Registros"]  # type: ignore
     #Muestra el archivo html o la vista y le pasa la informacion del diccionario
     return render(request,"Usuario.html",Datos)
 
@@ -108,9 +101,9 @@ def Movimiento_Edicion(request,Tipo,Clase):
     Datos["Tipo"]=Tipo
     Datos["Clase"]=Clase
     Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"_Transaccion_Transaccion2producto"
-    Datos["Bodegas"]= Archivo("Bodegas").Extraer()
-    Datos["Contactos"]= Archivo("Contacto").Extraer({"KEY":"TIPO","VALOR":Plural})
-    Datos["Productos"]=Archivo("Producto").Extraer()
+    Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
+    Datos["Contactos"]= Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])["Registros"]
+    Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
     return render(request,"Movimiento.html",Datos)
 
 def  Contactos_edicion(request,Tipo):
@@ -122,7 +115,7 @@ def  Contactos_edicion(request,Tipo):
 
 def Producto_edicion(request):
     Datos= Crear_Dic_Base("Producto")
-    Datos["Tipos"]=Archivo("Tipo_Productos").Extraer()  # type: ignore
-    Datos["Marca"]=Archivo("Marca").Extraer()# type: ignore
-    Datos["Medida"]=Archivo("Producto_Medida").Extraer()  # type: ignore
+    Datos["Tipos"]=Archivo("Tipo_Productos").Extraer()["Registros"]  # type: ignore
+    Datos["Marca"]=Archivo("Marca").Extraer()["Registros"] # type: ignore
+    Datos["Medida"]=Archivo("Producto_Medida").Extraer()["Registros"]  # type: ignore
     return render(request,"Producto.html",Datos)

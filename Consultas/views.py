@@ -1,13 +1,13 @@
 from Pinturita.Archivos import Archivo
 from django.shortcuts import render
-
+from Pinturita.Archivos import CONDICION as Condi
 def Bodegas_Consultas(request):
     Dicc= Obtener_dic("Bodegas")
     return render(request,"Consulta/Bodegas_Consulta.html",Dicc)
 
 def Contactos_Consultas(request,Tipo:int):
     Tipos=["Proveedores","Clientes","Empleados"]
-    Datos=Obtener_dic("Contacto",{"KEY":"TIPO","VALOR":Tipos[Tipo]})
+    Datos=Obtener_dic("Contacto",[{"KEY":"TIPO","VALOR":Tipos[Tipo],"COND":Condi["="]}])
     Datos["Tipo"]=Tipos[Tipo]
     return render(request,"Consulta/Contacto_Consulta.html",Datos)
 
@@ -19,7 +19,7 @@ def Interno_Consulta(request):
 
 def Movimiento_Consulta(request,Tipo):
     Plural=["Compras","Ventas","Interno"][Tipo]
-    Datos= Obtener_dic("Transaccion", {"KEY":"TIPO","VALOR":Plural})
+    Datos= Obtener_dic("Transaccion", [{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])
     Tipos=["Compras","Ventas","Interno"]
     Datos["Tipo"]=Tipos[Tipo]
     Datos["Clase"]=Tipo
@@ -39,7 +39,7 @@ def Usuario_Consulta(request):
 # Create your views here.
 
 def Obtener_dic(Nom_archivo,condiciones="") -> dict:
-    Arch= Archivo(Nom_archivo).Extraer(condiciones)
+    Arch= Archivo(Nom_archivo).Extraer(condiciones)["Registros"]
     Llaves=Arch[0].keys() if len(Arch)>0 else []
     Dic={"Encabezado":Llaves,"Valores": [Valor.values() for Valor in Arch]}
     return Dic

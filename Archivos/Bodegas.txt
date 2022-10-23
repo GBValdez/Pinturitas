@@ -1,1 +1,1 @@
-{'ID': '1', 'Nombre': 'Chapinita', 'Estado': 'Activo', 'Ventas': 'Verdadero', 'UBICACION': 'Lote 20', 'DESCRIPCION': 'Local hubicado en lote 17', 'CREADOR': 'GBValdez', 'Dia': '21/10/2022 23:03:08'}
+{'ID': '1', 'Nombre': 'La chapinita', 'Estado': 'Activo', 'Ventas': 'Verdadero', 'UBICACION': 'Lote 17 Manzana J Ciudad Capital', 'DESCRIPCION': 'Bodega para guardar productos de oleo', 'CREADOR': 'GBValdez', 'Dia': '22/10/2022 13:16:42'}
