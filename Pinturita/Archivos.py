@@ -38,19 +38,23 @@ class Archivo():
         self.RUTA=str(DIRECCION)+"\\Archivos\\"+archivo+".txt"  # type: ignore
                 
     
-    def Insertar(self,Info,Comprobacion:bool=True) -> None:
+    def Insertar(self,Info,Comprobacion:bool=True,CONDIPARAMETRO="") -> None:
         Entrar:bool=True
         if Comprobacion:
-            Dicc=  self.Extraer([{"KEY":"ID","VALOR":Info["ID"],"COND":CONDICION["="]}])
+            if CONDIPARAMETRO!="":
+                CONDIFINAL=CONDIPARAMETRO
+            else:
+                CONDIFINAL=[{"KEY":"ID","VALOR":Info["ID"],"COND":CONDICION["="]}]
+            Dicc=  self.Extraer(CONDIFINAL)
             Posiciones=Dicc["Posiciones"]
             Entrar=len(Dicc["Registros"])==0
         if Entrar:
             with open(self.RUTA,"a") as Arc:
                 Arc.write(str(Info)+"\n")
         else:
-            self.Actualizar([{"KEY":"ID","VALOR":Info["ID"],"COND":CONDICION["="]}],Info,Posiciones)
-    
-    
+            self.Actualizar(CONDIFINAL,Info,Posiciones)
+            
+            
     def Actualizar(self,Llave,Nuevo:dict,Posiciones) -> None:
         Contenido=[]
         with open(self.RUTA,"r") as Archivo:
@@ -64,7 +68,8 @@ class Archivo():
             
         with open(self.RUTA,"w") as Archivo:
             for i in Contenido:
-                Archivo.write(i+"\n")
+                if i!="":
+                    Archivo.write(i+"\n")
         
             
                                 

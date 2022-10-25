@@ -1,1 +1,3 @@
-{'PRODUCTO': ' 1', 'STOCK': '10', 'BODEGA': '1'}
+{'PRODUCTO': '1', 'STOCK': '20', 'BODEGA': '1'}
+{'PRODUCTO': '1', 'STOCK': '100', 'BODEGA': '2'}
+{'PRODUCTO': '2', 'STOCK': '10', 'BODEGA': '2'}

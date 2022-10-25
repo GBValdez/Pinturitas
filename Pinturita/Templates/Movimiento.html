@@ -57,7 +57,11 @@
                 <div class="Entradas">
                     <label for="Bodega_Salida">Bodega Salida</label>
                     <br>
+                    {% if Tipo != "Ventas" %}
                     <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required>
+                    {% else %}
+                    <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required readonly value="{{Bodegas.NOMBRE}}, {{Bodegas.ID}}">
+                    {% endif %}
                 </div>
                 {% endif %} 
                 <div class="Entradas">
@@ -80,19 +84,31 @@
                 <table class="Tabla_input" id="Tabla">
                     <tr class="Enc-Tabla">
                         <th>Producto</th>
+                        <th>Precio</th>
+                        {% if Tipo != "Compras" %}
                         <th>Cantidad</th>
+                        {% endif %}
+                        <th>{{TRANSACCION}}</th>
                         <th>SubTotal</th>
                         <th class="CELDANOP"></th>
                     </tr>
                     <tr id="RegistroTabla">
                         <td>
-                                <input id="Producto" type="text" list="List_Productos" class="Listas" name="_PRODUCTO" data-direccion="Productos" data-archivo="Dir">
+                                <input id="Producto" type="text" list="List_Productos" class="Listas CONINP" name="_PRODUCTO" data-direccion="Productos" data-archivo="Dir">
                         </td>
                         <td>
-                            <input type="number" id="Cantidad" required min="1">
+                            <input type="number" id="Cantidad" required min="1" class="PRECIO" readonly>
+                        </td>
+                        {% if Tipo != "Compras" %}
+                            <td>
+                                <input type="number" id="Cantidad" required min="1" class="STOCK" readonly>
+                            </td>
+                        {% endif %}
+                        <td>
+                            <input type="number" id="Cantidad" required min="1" name="_CANTIDAD" class="CANTIDAD" data-tipo="{{Tipo}}" readonly>
                         </td>
                         <td>
-                            <input type="number" name="DIRECCION" id="">
+                            <input type="number" name="DIRECCION" id="_SUBTOTAL" class="SUBTOTAL" readonly>
                         </td>
                         
                         <td class="CELDABTN">
@@ -111,15 +127,20 @@
         </form>
         <datalist id="List_Productos">
             {% for  i in Productos %}
-            <option value="{{i.NOMBRE}}, {{i.ID}}"></option>
+            <option value="{{i.NOMBRE}}, {{i.ID}}" data-precio="{{i.PRECIO}}" data-stock="{{i.STOCK}}"></option>
             {% endfor %}
         </datalist>
         <datalist id="List_Bodega">
+            {% if Tipo != "Ventas" %}
             {% for  i in Bodegas %}
             <option value="{{i.Nombre}}, {{i.ID}}"></option>
             {% endfor %}
+            {% else %}
+            <option value="{{Bodegas.NOMBRE}}, {{Bodegas.ID}}"></option>
+            {% endif %}
         </datalist>
         <script src="{% static '/Scripts/Listas.js' %}"></script>
         <script src="{% static '/Scripts/TablasIngreso.js' %}"></script>
+        <script src="{% static '/Scripts/OperacionesTabla.js' %}"></script>
     </section>
 {% endblock content %}    

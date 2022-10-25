@@ -1,1 +1,2 @@
 {'ID': '1', 'NOMBRE': 'Pintura de oleo cafe', 'MARCA': ' 1', 'TIPO': ' 1', 'COSTO': '20', 'PRECIO': '30', 'GANANCIA': '10', 'MEDIDA': ' 1', 'Estado': 'Activo', 'DESCRIPCION': 'Pintura de oleo color cafe', 'CREADOR': 'GBValdez', 'Dia': '22/10/2022 13:16:07'}
+{'ID': '2', 'NOMBRE': 'Pintura de Aceite Negro', 'MARCA': '2', 'TIPO': '2', 'COSTO': '10', 'PRECIO': '30', 'GANANCIA': '20', 'MEDIDA': '1', 'Estado': 'Activo', 'DESCRIPCION': 'Pintura de Aceite Negro para paredes planas', 'CREADOR': 'GBValdez', 'Dia': '25/10/2022 03:56:03'}

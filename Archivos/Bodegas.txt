@@ -1,1 +1,2 @@
-{'ID': '1', 'Nombre': 'La chapinita', 'Estado': 'Activo', 'Ventas': 'Verdadero', 'UBICACION': 'Lote 17 Manzana J Ciudad Capital', 'DESCRIPCION': 'Bodega para guardar productos de oleo', 'CREADOR': 'GBValdez', 'Dia': '22/10/2022 13:16:42'}
+{'ID': '1', 'Nombre': 'La chapinita', 'Estado': 'Activo', 'Ventas': 'Falso', 'UBICACION': 'Lote 17 Manzana J Ciudad Capital', 'DESCRIPCION': 'Bodega para guardar productos de oleo', 'CREADOR': 'GBValdez', 'Dia': '22/10/2022 13:16:42'}
+{'ID': '2', 'Nombre': 'Papa Noel', 'Estado': 'Activo', 'Ventas': 'Verdadero', 'UBICACION': 'Ciudad Capital', 'DESCRIPCION': 'Bodega para guardar Pintura de  oleo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 14:51:10'}

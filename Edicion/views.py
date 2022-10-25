@@ -11,9 +11,10 @@ def Obtener_dic(papu,Archimas):
     if papu.method=="POST":
         Dic= papu.POST.dict()
         if Archimas!="":
+            Archimas= Archimas.split("3")
             Lista= []
             Eliminar=[]
-            Archivito= Archivo(Archimas)
+            Archivito= Archivo(Archimas[0])
             for llave in Dic.keys():
                 if llave[0]=="_":
                     Registros= papu.POST.getlist(llave)
@@ -25,8 +26,26 @@ def Obtener_dic(papu,Archimas):
             for llave in Eliminar:
                 del Dic[llave]
             for registros in Lista:
-                registros["BODEGA"]=Dic["ID"]
+                registros[Archimas[1]]=Dic["ID"]
                 Archivito.Insertar(registros,False)
+                if Archimas[1]=="TRANSACCION":
+                    if "BOD_ENTRADA" in Dic:
+                        CONDPALABRA=[{"KEY":"BODEGA","VALOR":Dic["BOD_ENTRADA"],"COND":Condi["="]}
+                                                        , {"KEY":"PRODUCTO","VALOR":registros["PRODUCTO"],"COND":Condi["="]}]
+                        ArchCompra= Archivo("Bodega2producto").Extraer(CONDPALABRA)["Registros"]
+                        if len(ArchCompra)>0:
+                            ArchCompra["STOCK"]= str(int(ArchCompra[0]["STOCK"])+ int(registros["CANTIDAD"]))
+                        else:
+                            ArchCompra={"PRODUCTO": registros["PRODUCTO"],"STOCK": registros["CANTIDAD"],"BODEGA": Dic["BOD_ENTRADA"] }
+                        Archivo("Bodega2producto").Insertar(ArchCompra,True,CONDPALABRA)
+                    
+                    if "BOD_SALIDA" in Dic:
+                        CONDPALABRA=[{"KEY":"BODEGA","VALOR":Dic["BOD_SALIDA"],"COND":Condi["="]}
+                                                        , {"KEY":"PRODUCTO","VALOR":registros["PRODUCTO"],"COND":Condi["="]}]
+                        ArchCompra= Archivo("Bodega2producto").Extraer(CONDPALABRA)["Registros"][0]
+                        ArchCompra["STOCK"]= str(int(ArchCompra["STOCK"])-int(registros["CANTIDAD"]))
+                        Archivo("Bodega2producto").Insertar(ArchCompra,True,CONDPALABRA)
+                    
         del(Dic['csrfmiddlewaretoken'])
         return Dic
     return NULL
@@ -96,14 +115,27 @@ def Movimiento_Edicion(request,Tipo,Clase):
     Datos["BOD_ENTRADA"]= Clase!=1
     Datos["BOD_SALIDA"]= Clase!=0
     Plural= ["Proveedores","Clientes","Empleados"] [Clase]
+    Datos["TRANSACCION"]= ["Comprado","Vendido","Transferido"][Clase]
     No=str(Clase)
     Clase=["Proveedor","Cliente","Empleado"][Clase]
     Datos["Tipo"]=Tipo
     Datos["Clase"]=Clase
-    Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"_Transaccion_Transaccion2producto"
-    Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
+    Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"_Transaccion_Transaccion2producto3TRANSACCION"
+    if Tipo!="Ventas":
+        Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
+        Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
+    else:
+        Bodeg=Archivo("Bodegas").Extraer([{"KEY":"Ventas","VALOR":"Verdadero","COND":Condi["="]}])["Registros"][0]
+        Datos["Bodegas"]=  {"NOMBRE":Bodeg["Nombre"],"ID": Bodeg["ID"]}
+        Productos=Archivo("Bodega2producto").Extraer([{"KEY":"BODEGA","VALOR":Bodeg["ID"],"COND":Condi["="]}])["Registros"]
+        ProdFinal=[]
+        for prod in Productos:
+            DICProducto=Archivo("Producto").Extraer([{"KEY":"ID","VALOR":prod["PRODUCTO"],"COND":Condi["="]}])["Registros"][0]
+            DICProducto["STOCK"]=prod["STOCK"]
+            ProdFinal.append(DICProducto)
+        Datos["Productos"]=ProdFinal
     Datos["Contactos"]= Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])["Registros"]
-    Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
+    
     return render(request,"Movimiento.html",Datos)
 
 def  Contactos_edicion(request,Tipo):

@@ -22,6 +22,8 @@ Formulario.addEventListener("focusout",(event)=>{
         let DATOS= document.getElementById(IDBUSCAR);
         var Tama_List=DATOS.children.length;
         var Paro=true;
+        var Elegido=null
+        var Blanco=false;
         // verifica si la informacion que ingreso el usuario no sean solamente espacios en blanco y tambien verifica que si se encuentra ingresado la informacion en la lista
         for(j=0;j<Tama_List;j++){
             let InputEntrante=DATOS.children[j].getAttribute("value")
@@ -33,7 +35,8 @@ Formulario.addEventListener("focusout",(event)=>{
             }
             
             if(InputEntrante == event.target.value){
-                Paro=false; 
+                Paro=false;
+                Elegido=DATOS.children[j]; 
                 break;
             }
 
@@ -57,8 +60,35 @@ Formulario.addEventListener("focusout",(event)=>{
                 event.target.value="";
             })
             setTimeout(Desenfocar,2);
+            Blanco=true
+
+        }else if (event.target.classList.contains("CONINP") && Elegido!=null){
+            Blanco=false;
             
+        }else{
+            Blanco=true;
         }
+        
+        Tabla=event.target.parentNode.parentNode;
+        In_STOCK= Tabla.getElementsByClassName("STOCK")[0]; 
+        if (In_STOCK!=null){ 
+            In_STOCK.value=""
+            if (!Blanco){
+                In_STOCK.value =  parseFloat(Elegido.dataset.stock);
+            }
+        }
+        In_STOCK= Tabla.getElementsByClassName("PRECIO")[0];
+        if(In_STOCK!=null){
+            In_STOCK.value=""
+            Tabla.getElementsByClassName("CANTIDAD")[0].readOnly =true;
+            Tabla.getElementsByClassName("CANTIDAD")[0].value="";
+            Tabla.getElementsByClassName("SUBTOTAL")[0].value="";
+            if (!Blanco){
+                Tabla.getElementsByClassName("CANTIDAD")[0].readOnly =false;
+                In_STOCK.value = parseFloat(Elegido.dataset.precio);
+            }
+        }
+        
     }
 })
 
@@ -90,6 +120,7 @@ Formulario.addEventListener("submit",(e)=>{
     else{
         for (var i=0;i< Listas.length;i++ ){
             Listas[i].value=Listas[i].value.split(",")[1]
+            Listas[i].value= Listas[i].value.trimStart()
         }
     }
     
