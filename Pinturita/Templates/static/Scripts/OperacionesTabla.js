@@ -7,10 +7,7 @@
             var Padre=Input.parentNode.parentNode;
             if (Input.dataset.tipo!="Compras"){
                 var Cantidad= Padre.getElementsByClassName("STOCK")[0].value;
-                console.log(Cantidad);
-                console.log(Input.value);
-                console.log(parseInt(Input.value)>parseInt(Cantidad))
-                if (Input.value>Cantidad){
+                if (parseInt(Input.value)>parseInt(Cantidad)){
                     console.log("Darle")
                     Input.value=Cantidad;
                 }

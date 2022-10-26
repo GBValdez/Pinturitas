@@ -63,12 +63,41 @@ Formulario.addEventListener("focusout",(event)=>{
             Blanco=true
 
         }else if (event.target.classList.contains("CONINP") && Elegido!=null){
+
             Blanco=false;
-            
+            Demas_entrada=document.getElementsByClassName("CONINP");
+            console.log(Demas_entrada.length)
+            for ( entrada=0 ; entrada< Demas_entrada.length; entrada++){
+                if (Demas_entrada[entrada].value == event.target.value && Demas_entrada[entrada]!= event.target){
+                    event.target.value="";
+                    Blanco=true;
+                    alert("No puedes agregar dos registros con el mismo producto")
+                    break;
+                }
+            }
+
         }else{
+            if (document.getElementsByTagName("h2")[0].textContent =="Interno")
+                {
+            if (event.target.id=="Bodega_Salida"){
+                
+                let Numbod= event.target.value.split(",")[1];
+                Numbod= Numbod.trimStart()
+                window.location.href="/Edicion/Movimiento/Interno/2/"+ Numbod;
+                
+            }
+            if (event.target.id=="Bodega_Entrada"){
+                var Salida=document.getElementById("Bodega_Salida")
+                if (event.target.value== Salida.value){
+                    event.target.value="";
+                    alert("La bodega salida no puede ser igual a la bodega de entrada")
+                }
+            }
+        }
             Blanco=true;
         }
         
+        if (event.target.classList.contains("CONINP")){
         Tabla=event.target.parentNode.parentNode;
         In_STOCK= Tabla.getElementsByClassName("STOCK")[0]; 
         if (In_STOCK!=null){ 
@@ -88,6 +117,7 @@ Formulario.addEventListener("focusout",(event)=>{
                 In_STOCK.value = parseFloat(Elegido.dataset.precio);
             }
         }
+    }
         
     }
 })

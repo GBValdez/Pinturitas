@@ -21,7 +21,9 @@
     <H1>MI PINTURITA BONITA</H1>
 </header>
 <main>
-    <div>
+    <form action="{% url 'Autenticacion' %}" method="post">
+        {% csrf_token %}
+        <div>
         <div class="Inicio">
             <p class="Ini">Iniciar Sesión</p>
             <img src="{% static 'Imagenes/Login.png' %}" alt="Imagen de login" class="Logo">
@@ -32,13 +34,14 @@
         <p class="Labels">
             Usuario
         </p>
-        <input type="text" name="Usuario" id="Usuario" class="Textbox">
+        <input type="text" name="USUARIO" id="Usuario" class="Textbox">
         <p class="Labels">
             Password
         </p>
-        <input type="password" name="Usuario" id="Usuario" class="Textbox">
-        <input type="button" value="Iniciar" class="Boton">
+        <input type="password" name="CLAVE" id="CLAVE" class="Textbox">
+        <input type="submit" value="Iniciar" class="Boton">
     </div>
+</form>
 </main>
 </div>
 </div>

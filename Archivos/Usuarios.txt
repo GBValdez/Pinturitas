@@ -1,2 +1,2 @@
-{'ID': '1', 'CONTACTO': ' 1', 'USERNAME': 'Benjabriel', 'PASSWORD': 'Guatemala', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 03:03:38'}
+{'TOKEN':'','ID': '1', 'CONTACTO': ' 1', 'USERNAME': 'Benjabriel', 'PASSWORD': 'Guatemala', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 03:03:38'}
 {'ID': '2', 'CONTACTO': ' 1', 'USERNAME': 'Lester', 'PASSWORD': 'esoguatemala', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 03:05:06'}

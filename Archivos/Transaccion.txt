@@ -8,3 +8,8 @@
 {'ID': '8', 'Etapa': 'Presupuesto', 'CONTACTO': '4', 'DIRECCION': '3000', 'BOD_ENTRADA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '25/10/2022 04:12:13'}
 {'ID': '9', 'Etapa': 'Presupuesto', 'CONTACTO': '2', 'DIRECCION': '3600', 'BOD_SALIDA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Ventas', 'Dia': '25/10/2022 04:14:33'}
 {'ID': '10', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '300', 'BOD_ENTRADA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '25/10/2022 04:24:21'}
+{'ID': '11', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '1500', 'BOD_ENTRADA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 00:40:02'}
+{'BOD_ENTRADA': '1', 'ID': '12', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '15000', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 01:35:46'}
+{'BOD_ENTRADA': '1', 'ID': '13', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '10000', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 01:37:25'}
+{'BOD_ENTRADA': '1', 'ID': '14', 'Etapa': 'Presupuesto', 'CONTACTO': '4', 'DIRECCION': '100', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 01:38:27'}
+{'BOD_SALIDA': '1', 'BOD_ENTRADA': '2', 'ID': '15', 'Etapa': 'Presupuesto', 'CONTACTO': '1', 'DIRECCION': '10000', 'CREADOR': 'GBValdez', 'TIPO': 'Interno', 'Dia': '26/10/2022 01:45:00'}

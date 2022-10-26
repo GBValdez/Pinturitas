@@ -34,7 +34,8 @@ def Obtener_dic(papu,Archimas):
                                                         , {"KEY":"PRODUCTO","VALOR":registros["PRODUCTO"],"COND":Condi["="]}]
                         ArchCompra= Archivo("Bodega2producto").Extraer(CONDPALABRA)["Registros"]
                         if len(ArchCompra)>0:
-                            ArchCompra["STOCK"]= str(int(ArchCompra[0]["STOCK"])+ int(registros["CANTIDAD"]))
+                            ArchCompra[0]["STOCK"]= str(int(ArchCompra[0]["STOCK"])+ int(registros["CANTIDAD"]))
+                            ArchCompra= ArchCompra[0]
                         else:
                             ArchCompra={"PRODUCTO": registros["PRODUCTO"],"STOCK": registros["CANTIDAD"],"BODEGA": Dic["BOD_ENTRADA"] }
                         Archivo("Bodega2producto").Insertar(ArchCompra,True,CONDPALABRA)
@@ -110,7 +111,7 @@ def Clientes_edicion(request):
     Datos= Crear_Dic_Base("Usuarios")
     return render(request,"Clientes.html")
 
-def Movimiento_Edicion(request,Tipo,Clase):
+def Movimiento_Edicion(request,Tipo,Clase,Salida="*"):
     Datos=Crear_Dic_Base("Transaccion")
     Datos["BOD_ENTRADA"]= Clase!=1
     Datos["BOD_SALIDA"]= Clase!=0
@@ -120,13 +121,21 @@ def Movimiento_Edicion(request,Tipo,Clase):
     Clase=["Proveedor","Cliente","Empleado"][Clase]
     Datos["Tipo"]=Tipo
     Datos["Clase"]=Clase
-    Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"_Transaccion_Transaccion2producto3TRANSACCION"
-    if Tipo!="Ventas":
+    Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"-*"+"_Transaccion_Transaccion2producto3TRANSACCION"
+    if Tipo=="Compras":
         Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
         Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
     else:
-        Bodeg=Archivo("Bodegas").Extraer([{"KEY":"Ventas","VALOR":"Verdadero","COND":Condi["="]}])["Registros"][0]
-        Datos["Bodegas"]=  {"NOMBRE":Bodeg["Nombre"],"ID": Bodeg["ID"]}
+        if Tipo=="Ventas":
+            Bodeg=Archivo("Bodegas").Extraer([{"KEY":"Ventas","VALOR":"Verdadero","COND":Condi["="]}])["Registros"][0]
+            Datos["Bodegas"]=  {"NOMBRE":Bodeg["Nombre"],"ID": Bodeg["ID"]}
+        else:
+            if Salida!="*":
+                Bodeg=Archivo("Bodegas").Extraer([{"KEY":"ID","VALOR":Salida,"COND":Condi["="]}])["Registros"][0]
+            else:
+                Bodeg=Archivo("Bodegas").Extraer([{"KEY":"ID","VALOR":"1","COND":Condi["="]}])["Registros"][0]
+            Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
+            Datos["Bod"]= Bodeg
         Productos=Archivo("Bodega2producto").Extraer([{"KEY":"BODEGA","VALOR":Bodeg["ID"],"COND":Condi["="]}])["Registros"]
         ProdFinal=[]
         for prod in Productos:
@@ -134,6 +143,8 @@ def Movimiento_Edicion(request,Tipo,Clase):
             DICProducto["STOCK"]=prod["STOCK"]
             ProdFinal.append(DICProducto)
         Datos["Productos"]=ProdFinal
+    if Tipo=="Interno" and Salida=="*":
+        Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
     Datos["Contactos"]= Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])["Registros"]
     
     return render(request,"Movimiento.html",Datos)

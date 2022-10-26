@@ -1,2 +1,3 @@
 {'CREADOR': 'GBValdez', 'ID': 1, 'Nombre': 'Filix', 'Dia': '22/10/2022 13:15:45'}
 {'CREADOR': 'GBValdez', 'ID': 2, 'Nombre': 'Tolep', 'Dia': '25/10/2022 03:54:00'}
+{'CREADOR': 'GBValdez', 'ID': 3, 'Nombre': 'Colorplus', 'Dia': '26/10/2022 01:20:27'}
