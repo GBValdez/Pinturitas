@@ -7,33 +7,9 @@
 {% block content %}
     <section class="Formulario">
         {% include 'Individual.html'%}
-        <form action="{% url 'Edicion:Ingresar' URLMovimiento %}" method="post">
+        <form action="{{URLPASAR}}" method="post">
             {% csrf_token %}
-            <div class="Filas">
-                {% if BOD_SALIDA %}
-                <div class="Entradas">
-                    <label for="Bodega_Salida">Bodega Salida</label>
-                    <br>
-                    {% if Tipo != "Ventas" %}
-                    {% if Tipo != "Interno" %}
-                    <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required>
-                    {% else %}
-                    <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required value="{{Bod.Nombre}}, {{Bod.ID}}">
-                    {% endif %}
-                    {% else %}
-                    <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required readonly value="{{Bodegas.NOMBRE}}, {{Bodegas.ID}}">
-                    {% endif %}
-                </div>
-                {% endif %}
-                {% if BOD_ENTRADA %}
-                <div class="Entradas">
-                    <label for="Bodega_Entrada">Bodega Entrada</label>
-                    <br>
-                    <input id="Bodega_Entrada" type="text" list="List_Bodega" class="Listas" name="BOD_ENTRADA" data-direccion="Bodegas" data-archivo="Dir" required>
-                </div>
-                {% endif %} 
             
-            </div>
             <div class="Filas">
             <div class="Entradas">
                 <label for="ID">ID</label>
@@ -49,6 +25,31 @@
                 <option value="Comprado">Comprado</option>
             </select>     
             </div>
+        </div>
+        <div class="Filas">
+            {% if BOD_SALIDA %}
+            <div class="Entradas">
+                <label for="Bodega_Salida">Bodega Salida</label>
+                <br>
+                {% if Tipo != "Ventas" %}
+                {% if Tipo != "Interno" %}
+                <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required>
+                {% else %}
+                <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required value="{{Bod.Nombre}}, {{Bod.ID}}">
+                {% endif %}
+                {% else %}
+                <input id="Bodega_Salida" type="text" list="List_Bodega" class="Listas" name="BOD_SALIDA" data-direccion="Bodegas" data-archivo="Dir" required readonly value="{{Bodegas.NOMBRE}}, {{Bodegas.ID}}">
+                {% endif %}
+            </div>
+            {% endif %}
+            {% if BOD_ENTRADA %}
+            <div class="Entradas">
+                <label for="Bodega_Entrada">Bodega Entrada</label>
+                <br>
+                <input id="Bodega_Entrada" type="text" list="List_Bodega" class="Listas" name="BOD_ENTRADA" data-direccion="Bodegas" data-archivo="Dir" required>
+            </div>
+            {% endif %} 
+        
         </div>
             <!-- El div "Filas" contendra 2 entradas (inputs)-->
             <div class="Filas">

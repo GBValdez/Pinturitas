@@ -56,6 +56,8 @@ def Crear_Dic_Base(Ruta,request,ID,URL):
     Lineas:int= Archivo(Ruta).Lineas()
     Usuario=  Decodificar(request.session.get("User"))
     Datos= {"IDNO":ID,"CREADOR":Usuario[1]}
+    if ID==0:
+        Datos["IDNO"]=Lineas
     Datos["URLPASAR"]=f"/Edicion/Ingresar/{URL}"
     Datos["ACTUAREGISTRO"]=""
     if Lineas!= ID:
@@ -69,6 +71,8 @@ def Crear_Dic_Base(Ruta,request,ID,URL):
 def Ingresar(request,Tipo):
     Palabras = Tipo.replace("-","/")
     Palabras= Palabras.split("_")
+    Otra= [pal.replace("*","_") for pal in Palabras]
+    Palabras=Otra
     ArchiMAS:string=""
     if len(Palabras)==3:
         ArchiMAS=Palabras[2]
@@ -83,7 +87,9 @@ def Ingresar(request,Tipo):
 
 def Ingresar_unicos(request,Nom_Archivo,Valor,Vista,ID):
     #Verifica si el nombre del archivo no es Dir
+    PREID=0
     if Nom_Archivo!="Dir":
+        PREID=ID
         #crea el diccionario 
         Dic=Crear_Dic_Base(Nom_Archivo,request,"","")
         #cambiamos el IDNO a ID
@@ -101,13 +107,15 @@ def Ingresar_unicos(request,Nom_Archivo,Valor,Vista,ID):
         Arch= Archivo(Nom_Archivo)
         Arch.Insertar(Dic)
         #la url nos dirige denuevo a la vista
+    if PREID==0:
+        ID=0
     url=Vista.replace("_","/")
     return redirect("/Edicion/"+url+"/"+str(ID))
 
 
 def Bodega_edicio(request,ID):
     if Authen(request):
-        Datos= Crear_Dic_Base("Bodegas",request)
+        Datos= Crear_Dic_Base("Bodegas",request,ID,"Bodegas_Bodegas")
         Datos["Productos"]= Archivo("Producto").Extraer()["Registros"]
         return render(request,"Bodegas.html",Datos)
     return redirect("/")
@@ -125,7 +133,7 @@ def Usuario_edicion(request,ID):
 
 def Movimiento_Edicion(request,Tipo,Clase,Salida="*",ID=0):
     if Authen(request):
-        Datos=Crear_Dic_Base("Transaccion",request)
+        Datos=Crear_Dic_Base("Transaccion",request,ID,"")
         Datos["BOD_ENTRADA"]= Clase!=1
         Datos["BOD_SALIDA"]= Clase!=0
         Plural= ["Proveedores","Clientes","Empleados"] [Clase]
@@ -134,7 +142,7 @@ def Movimiento_Edicion(request,Tipo,Clase,Salida="*",ID=0):
         Clase=["Proveedor","Cliente","Empleado"][Clase]
         Datos["Tipo"]=Tipo
         Datos["Clase"]=Clase
-        Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"-*"+"_Transaccion_Transaccion2producto3TRANSACCION"
+        Datos["URLPASAR"]="/Edicion/Ingresar/Movimiento-"+No+"_Transaccion_Transaccion2producto3TRANSACCION"
         if Tipo=="Compras":
             Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
             Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
@@ -165,7 +173,9 @@ def Movimiento_Edicion(request,Tipo,Clase,Salida="*",ID=0):
 
 def  Contactos_edicion(request,Tipo,ID):
     if Authen(request):
-        Datos= Crear_Dic_Base("Contacto",request)
+        Tipos= str(["Proveedores","Clientes","Empleados"].index(Tipo))
+        print("Valor "+Tipos)
+        Datos= Crear_Dic_Base("Contacto",request,ID,f"Contactos-{Tipos}_Contacto")
         Datos["Tipo"]=Tipo
         Datos["URLContac"]="Contactos-"+Tipo+"_Contacto"
         return render(request,"Contactos.html",Datos)
@@ -173,7 +183,7 @@ def  Contactos_edicion(request,Tipo,ID):
 
 def Producto_edicion(request,ID):
     if Authen(request):
-        Datos= Crear_Dic_Base("Producto",request,ID,"Productos_Producto_Consulta")
+        Datos= Crear_Dic_Base("Producto",request,ID,"Producto*Consulta_Producto")
         Datos["Tipos"]=Archivo("Tipo_Productos").Extraer()["Registros"]  # type: ignore
         Datos["Marca"]=Archivo("Marca").Extraer()["Registros"] # type: ignore
         Datos["Medida"]=Archivo("Producto_Medida").Extraer()["Registros"]  # type: ignore

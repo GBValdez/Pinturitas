@@ -13,9 +13,10 @@ def Bodegas_Consultas(request):
 def Contactos_Consultas(request,Tipo:int):
     if Authen(request):
         Tipos=["Proveedores","Clientes","Empleados"]
-        Datos=Obtener_dic("Contacto",[{"KEY":"TIPO","VALOR":Tipos[Tipo],"COND":Condi["="]}]
+        Tipos= Tipos[Tipo]
+        Datos=Obtener_dic("Contacto",[{"KEY":"TIPO","VALOR":Tipos,"COND":Condi["="]}]
                           ,f"/Edicion/Contactos/{Tipos}/")
-        Datos["Tipo"]=Tipos[Tipo]
+        Datos["Tipo"]=Tipos
         return render(request,"Consulta/Contacto_Consulta.html",Datos)
     return redirect("/")
 
@@ -31,9 +32,9 @@ def Movimiento_Consulta(request,Tipo):
         Tipos=["Compras","Ventas","Interno"]
         Tipos= Tipos[Tipo]
         Datos= Obtener_dic("Transaccion", [{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}]
-                           ,f"/Edicion/Movimiento/{Tipos}/{Tipo}/*/")
+                           ,f"/Edicion/Movimiento/{Tipos}/{Tipo}/1/")
         Tipos=["Compras","Ventas","Interno"]
-        Datos["Tipo"]=Tipos
+        Datos["Tipo"]=Plural
         Datos["Clase"]=Tipo
         return render(request,"Consulta/Movimiento_Consulta.html",Datos)
     return redirect("/")
@@ -58,7 +59,8 @@ def Usuario_Consulta(request):
 
 def Obtener_dic(Nom_archivo,condiciones="",URLPA="") -> dict:
     Arch= Archivo(Nom_archivo).Extraer(condiciones)["Registros"]
+    MasID=Archivo(Nom_archivo).Lineas() 
     Llaves=Arch[0].keys() if len(Arch)>0 else []
     Dic={"Encabezado":Llaves,"Valores": [Valor.values() for Valor in Arch],
-         "URL":URLPA,"URLULTIMO": URLPA+str(len(Arch)+1)}
+         "URL":URLPA,"URLULTIMO": URLPA+str(MasID)}
     return Dic

@@ -1,15 +1,2 @@
-{'ID': '1', 'Etapa': 'Presupuesto', 'CONTACTO': ' 2', 'DIRECCION': '12', 'BOD_SALIDA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Ventas', 'Dia': '22/10/2022 13:17:09'}
-{'ID': '2', 'Etapa': 'Presupuesto', 'CONTACTO': ' 4', 'DIRECCION': '20', 'BOD_ENTRADA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '23/10/2022 15:10:07'}
-{'ID': '3', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '10', 'BOD_ENTRADA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '23/10/2022 16:14:30'}
-{'ID': '4', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '10', 'BOD_ENTRADA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '23/10/2022 16:16:58'}
-{'ID': '5', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '10', 'BOD_ENTRADA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '23/10/2022 16:23:58'}
-{'ID': '6', 'Etapa': 'Presupuesto', 'CONTACTO': '2', 'DIRECCION': '1', 'BOD_SALIDA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Ventas', 'Dia': '23/10/2022 16:36:02'}
-{'ID': '7', 'Etapa': 'Presupuesto', 'CONTACTO': '1', 'DIRECCION': '10', 'BOD_ENTRADA': '1', 'BOD_SALIDA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Interno', 'Dia': '23/10/2022 16:38:38'}
-{'ID': '8', 'Etapa': 'Presupuesto', 'CONTACTO': '4', 'DIRECCION': '3000', 'BOD_ENTRADA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '25/10/2022 04:12:13'}
-{'ID': '9', 'Etapa': 'Presupuesto', 'CONTACTO': '2', 'DIRECCION': '3600', 'BOD_SALIDA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Ventas', 'Dia': '25/10/2022 04:14:33'}
-{'ID': '10', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '300', 'BOD_ENTRADA': '2', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '25/10/2022 04:24:21'}
-{'ID': '11', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '1500', 'BOD_ENTRADA': '1', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 00:40:02'}
-{'BOD_ENTRADA': '1', 'ID': '12', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '15000', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 01:35:46'}
-{'BOD_ENTRADA': '1', 'ID': '13', 'Etapa': 'Presupuesto', 'CONTACTO': '3', 'DIRECCION': '10000', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 01:37:25'}
-{'BOD_ENTRADA': '1', 'ID': '14', 'Etapa': 'Presupuesto', 'CONTACTO': '4', 'DIRECCION': '100', 'CREADOR': 'GBValdez', 'TIPO': 'Compras', 'Dia': '26/10/2022 01:38:27'}
-{'BOD_SALIDA': '1', 'BOD_ENTRADA': '2', 'ID': '15', 'Etapa': 'Presupuesto', 'CONTACTO': '1', 'DIRECCION': '10000', 'CREADOR': 'GBValdez', 'TIPO': 'Interno', 'Dia': '26/10/2022 01:45:00'}
+{'ID': '1', 'Etapa': 'Presupuesto', 'BOD_SALIDA': '2', 'BOD_ENTRADA': '1', 'CONTACTO': '2', 'DIRECCION': '150', 'CREADOR': 'Benjabriel', 'TIPO': 'Interno', 'Dia': '28/10/2022 18:25:49'}
+{'ID': '2', 'Etapa': 'Presupuesto', 'BOD_SALIDA': '2', 'CONTACTO': '5', 'DIRECCION': '30', 'CREADOR': 'Benjabriel', 'TIPO': 'Ventas', 'Dia': '28/10/2022 18:31:31'}

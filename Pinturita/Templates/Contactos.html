@@ -6,7 +6,7 @@
 
 {% block content %}
 <section class="Formulario">
-    <form action="{% url 'Edicion:Ingresar' URLContac %}" method="POST">
+    <form action="{{URLPASAR}}" method="POST">
         {% csrf_token %}
         <!-- El div "Filas" contendra 2 entradas (inputs)-->
         

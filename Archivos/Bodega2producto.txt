@@ -1,6 +1,7 @@
-{'PRODUCTO': '1', 'STOCK': '20', 'BODEGA': '1'}
-{'PRODUCTO': '1', 'STOCK': '100', 'BODEGA': '2'}
-{'PRODUCTO': '2', 'STOCK': '10', 'BODEGA': '2'}
+{'PRODUCTO': '1', 'STOCK': '25', 'BODEGA': '1'}
+{'PRODUCTO': '1', 'STOCK': '75', 'BODEGA': '2'}
+{'PRODUCTO': '2', 'STOCK': '4', 'BODEGA': '2'}
 {'PRODUCTO': '2', 'STOCK': '550', 'BODEGA': '1'}
 {'PRODUCTO': '3', 'STOCK': '201', 'BODEGA': '1'}
 {'PRODUCTO': '3', 'STOCK': '100', 'BODEGA': '2'}
+{'PRODUCTO': '2', 'STOCK': '10', 'BODEGA': '3'}

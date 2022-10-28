@@ -85,8 +85,9 @@ Formulario.addEventListener("focusout",(event)=>{
             if (event.target.id=="Bodega_Salida"){
                 
                 let Numbod= event.target.value.split(",")[1];
-                Numbod= Numbod.trimStart()
-                window.location.href="/Edicion/Movimiento/Interno/2/"+ Numbod;
+                Numbod= Numbod.trimStart();
+                let ID_ACTUAL = document.getElementById("ID").value
+                window.location.href="/Edicion/Movimiento/Interno/2/"+ Numbod+"/"+ID_ACTUAL;
                 
             }
             if (event.target.id=="Bodega_Entrada"){
