@@ -32,7 +32,7 @@
                 <h3>Usuario</h3>
                 <ul>
                     <li>
-                        <a href="{% url 'Usuarios_Consulta' %}">Usuario</a>
+                        <a href="/Consultas/Usuarios">Usuario</a>
                     </li>
                 </ul>
                 <h3>Invetario</h3>
@@ -41,13 +41,13 @@
                         <a href="{% url 'Producto_Consulta' %}">Productos</a>
                     </li>
                     <li>
-                        <a href="{% url 'Bodegas_Consulta' %}">Bodegas</a>
+                        <a href="/Consultas/Bodegas">Bodegas</a>
                     </li>
                 </ul>
                 <h3>Contactos</h3>
                 <ul>
                     <li>
-                        <a href="{% url 'Contactos_Consulta' 0 %}">Proveedores</a>
+                        <a href="Edicion">Proveedores</a>
                     </li>
                     <li>
                         <a href="{% url 'Contactos_Consulta' 1 %}">Clientes</a>
@@ -59,13 +59,13 @@
                 <h3>Movimientos</h3>
                 <ul>
                     <li>
-                        <a href="{% url 'Movimiento_Consulta' 0 %}">Compras</a>
+                        <a href="/Consultas/Movimiento/0">Compras</a>
                     </li>
                     <li>
-                        <a href="{% url 'Movimiento_Consulta' 1 %}">Ventas</a>
+                        <a href="/Consultas/Movimiento/1">Ventas</a>
                     </li>
                     <li>
-                        <a href="{% url 'Movimiento_Consulta' 2 %}">Interno</a>
+                        <a href="/Consultas/Movimiento/2">Interno</a>
                     </li>
                     <li>
                         <a href="{% url 'Facturas_Consulta' %}">Facturas</a>
@@ -77,7 +77,7 @@
                         <a href="{% url 'Reporte_Inventario' %}">Inventarios</a>
                     </li>
                     <li>
-                        <a href="{% url 'Usuarios_Consulta' %}">Ventas</a>
+                        <a href="#">Ventas</a>
                     </li>
                 </ul>
             </nav>

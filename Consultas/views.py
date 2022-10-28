@@ -1,45 +1,64 @@
 from Pinturita.Archivos import Archivo
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from Pinturita.Archivos import CONDICION as Condi
+from Pinturita.User64 import Verificar_autenticacion as Authen
+UserName=""
+
 def Bodegas_Consultas(request):
-    Dicc= Obtener_dic("Bodegas")
-    return render(request,"Consulta/Bodegas_Consulta.html",Dicc)
+    if Authen(request):
+        Dicc= Obtener_dic("Bodegas","/Edicion/Bodegas/")
+        return render(request,"Consulta/Bodegas_Consulta.html",Dicc)
+    return redirect("/")
 
 def Contactos_Consultas(request,Tipo:int):
-    Tipos=["Proveedores","Clientes","Empleados"]
-    Datos=Obtener_dic("Contacto",[{"KEY":"TIPO","VALOR":Tipos[Tipo],"COND":Condi["="]}])
-    Datos["Tipo"]=Tipos[Tipo]
-    return render(request,"Consulta/Contacto_Consulta.html",Datos)
+    if Authen(request):
+        Tipos=["Proveedores","Clientes","Empleados"]
+        Datos=Obtener_dic("Contacto",[{"KEY":"TIPO","VALOR":Tipos[Tipo],"COND":Condi["="]}]
+                          ,f"/Edicion/Contactos/{Tipos}/")
+        Datos["Tipo"]=Tipos[Tipo]
+        return render(request,"Consulta/Contacto_Consulta.html",Datos)
+    return redirect("/")
 
 def Facturas_Consulta(request):
-    return render(request,"Consulta/Facturas_Consulta.html")
+    if Authen(request):
+        return render(request,"Consulta/Facturas_Consulta.html")
+    return redirect("/")
 
-def Interno_Consulta(request):
-    return render(request,"Consulta/Interno_Consulta.html")
 
 def Movimiento_Consulta(request,Tipo):
-    Plural=["Compras","Ventas","Interno"][Tipo]
-    Datos= Obtener_dic("Transaccion", [{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])
-    Tipos=["Compras","Ventas","Interno"]
-    Datos["Tipo"]=Tipos[Tipo]
-    Datos["Clase"]=Tipo
-    return render(request,"Consulta/Movimiento_Consulta.html",Datos)
+    if Authen(request):
+        Plural=["Compras","Ventas","Interno"][Tipo]
+        Tipos=["Compras","Ventas","Interno"]
+        Tipos= Tipos[Tipo]
+        Datos= Obtener_dic("Transaccion", [{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}]
+                           ,f"/Edicion/Movimiento/{Tipos}/{Tipo}/*/")
+        Tipos=["Compras","Ventas","Interno"]
+        Datos["Tipo"]=Tipos
+        Datos["Clase"]=Tipo
+        return render(request,"Consulta/Movimiento_Consulta.html",Datos)
+    return redirect("/")
 
 def Producto_Consulta(request):
-    Dicc= Obtener_dic("Producto")
-    return render(request,"Consulta/Producto_Consulta.html",Dicc)
+    if Authen(request):
+        Dicc= Obtener_dic("Producto",URLPA="/Edicion/Productos/")
+        return render(request,"Consulta/Producto_Consulta.html",Dicc)
+    return redirect("/")
 
 def Reporte_Inventario(request):
-    return render(request,"Consulta/Reporte_inventario.html")
-
+    if Authen(request):
+        return render(request,"Consulta/Reporte_inventario.html")
+    return redirect("/")
 
 def Usuario_Consulta(request):
-    Dicc= Obtener_dic("Usuarios")
-    return render(request,"Consulta/Usuario_Consulta.html",Dicc)    
-# Create your views here.
+    if Authen(request):
+        Dicc= Obtener_dic("Usuarios",URLPA="/Edicion/Usuarios/")
+        return render(request,"Consulta/Usuario_Consulta.html",Dicc)    
+    return redirect("/")
+#Diccionario para obtener todas las consultas
 
-def Obtener_dic(Nom_archivo,condiciones="") -> dict:
+def Obtener_dic(Nom_archivo,condiciones="",URLPA="") -> dict:
     Arch= Archivo(Nom_archivo).Extraer(condiciones)["Registros"]
     Llaves=Arch[0].keys() if len(Arch)>0 else []
-    Dic={"Encabezado":Llaves,"Valores": [Valor.values() for Valor in Arch]}
+    Dic={"Encabezado":Llaves,"Valores": [Valor.values() for Valor in Arch],
+         "URL":URLPA,"URLULTIMO": URLPA+str(len(Arch)+1)}
     return Dic

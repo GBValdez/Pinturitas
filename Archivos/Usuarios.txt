@@ -1,2 +1,8 @@
-{'TOKEN':'','ID': '1', 'CONTACTO': ' 1', 'USERNAME': 'Benjabriel', 'PASSWORD': 'Guatemala', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 03:03:38'}
+{'ID': '1', 'CONTACTO': ' 1', 'USERNAME': 'Benjabriel', 'PASSWORD': 'Guatemala', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 03:03:38'}
 {'ID': '2', 'CONTACTO': ' 1', 'USERNAME': 'Lester', 'PASSWORD': 'esoguatemala', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'GBValdez', 'Dia': '23/10/2022 03:05:06'}
+{'ID': '3', 'CONTACTO': '1', 'USERNAME': 'Lele', 'PASSWORD': 'ESTUDIOS', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 01:55:46'}
+{'ID': '4', 'CONTACTO': '1', 'USERNAME': 'ESTO', 'PASSWORD': '12010I41', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 01:57:43'}
+{'ID': '5', 'CONTACTO': '1', 'USERNAME': 'qw', 'PASSWORD': '12R122', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:00:50'}
+{'ID': '6', 'CONTACTO': '1', 'USERNAME': 'PAPAPA', 'PASSWORD': '12RIKF103', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:01:37'}
+{'ID': '7', 'CONTACTO': '1', 'USERNAME': 'aofjqow', 'PASSWORD': 'qwjkfowq', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:04:02'}
+{'ID': '8', 'CONTACTO': '1', 'USERNAME': 'ewgq', 'PASSWORD': 'egwe', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:24:12'}

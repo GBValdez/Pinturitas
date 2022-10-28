@@ -4,8 +4,8 @@ from django.shortcuts import redirect, render
 from Pinturita.Archivos  import Archivo, CONDICION as Condi
 from pathlib import Path
 import datetime
-DIRECCION = Path(__file__).resolve().parent.parent
-print("Direccion papu" + str(DIRECCION))
+from Pinturita.User64 import Decodificar,Verificar_autenticacion as Authen 
+UserName=""
 
 def Obtener_dic(papu,Archimas):
     if papu.method=="POST":
@@ -51,18 +51,11 @@ def Obtener_dic(papu,Archimas):
         return Dic
     return NULL
 
-def Crear_Dic_Base(Ruta):
+def Crear_Dic_Base(Ruta,request):
     Lineas:int= Archivo(Ruta).Lineas()
-    Datos= {"IDNO":Lineas,"CREADOR":"GBValdez"}
+    Usuario=  Decodificar(request.session.get("User"))
+    Datos= {"IDNO":Lineas,"CREADOR":Usuario[1]}
     return Datos
-
-
-def Bodega_edicio(request):
-    Datos= Crear_Dic_Base("Bodegas")
-    Datos["Productos"]= Archivo("Producto").Extraer()["Registros"]
-    return render(request,"Bodegas.html",Datos)
-
-
 
 def Ingresar(request,Tipo):
     Palabras = Tipo.replace("-","/")
@@ -78,11 +71,12 @@ def Ingresar(request,Tipo):
         Usuario.Insertar(Dic,True)
     return redirect("/Edicion/"+Palabras[0])
 
+
 def Ingresar_unicos(request,Nom_Archivo,Valor,Vista):
     #Verifica si el nombre del archivo no es Dir
     if Nom_Archivo!="Dir":
         #crea el diccionario 
-        Dic=Crear_Dic_Base(Nom_Archivo)
+        Dic=Crear_Dic_Base(Nom_Archivo,request)
         #cambiamos el IDNO a ID
         Dic["ID"]= Dic["IDNO"]
         #eliminamos IDNO
@@ -99,66 +93,77 @@ def Ingresar_unicos(request,Nom_Archivo,Valor,Vista):
     return redirect("/Edicion/"+url)
 
 
-def Usuario_edicion(request):
-    #Creamos nuestro diccionario, que pueda el numero de registro que tiene el archivo y el nombre del creador
-    Datos= Crear_Dic_Base("Usuarios")
-    #Llamamos la informacion de contacto y extrae la informacion especifica de contacto
-    Datos["Empleados"]=Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":"Empleados","COND":Condi["="]}])["Registros"]  # type: ignore
-    #Muestra el archivo html o la vista y le pasa la informacion del diccionario
-    return render(request,"Usuario.html",Datos)
+def Bodega_edicio(request):
+    if Authen(request):
+        Datos= Crear_Dic_Base("Bodegas",request)
+        Datos["Productos"]= Archivo("Producto").Extraer()["Registros"]
+        return render(request,"Bodegas.html",Datos)
+    return redirect("/")
 
-def Clientes_edicion(request):
-    Datos= Crear_Dic_Base("Usuarios")
-    return render(request,"Clientes.html")
+def Usuario_edicion(request):
+    if Authen(request):
+        #Creamos nuestro diccionario, que pueda el numero de registro que tiene el archivo y el nombre del creador
+        Datos= Crear_Dic_Base("Usuarios",request)
+        #Llamamos la informacion de contacto y extrae la informacion especifica de contacto
+        Datos["Empleados"]=Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":"Empleados","COND":Condi["="]}])["Registros"]  # type: ignore
+        #Muestra el archivo html o la vista y le pasa la informacion del diccionario
+        return render(request,"Usuario.html",Datos)
+    return redirect("/")
+
 
 def Movimiento_Edicion(request,Tipo,Clase,Salida="*"):
-    Datos=Crear_Dic_Base("Transaccion")
-    Datos["BOD_ENTRADA"]= Clase!=1
-    Datos["BOD_SALIDA"]= Clase!=0
-    Plural= ["Proveedores","Clientes","Empleados"] [Clase]
-    Datos["TRANSACCION"]= ["Comprado","Vendido","Transferido"][Clase]
-    No=str(Clase)
-    Clase=["Proveedor","Cliente","Empleado"][Clase]
-    Datos["Tipo"]=Tipo
-    Datos["Clase"]=Clase
-    Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"-*"+"_Transaccion_Transaccion2producto3TRANSACCION"
-    if Tipo=="Compras":
-        Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
-        Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
-    else:
-        if Tipo=="Ventas":
-            Bodeg=Archivo("Bodegas").Extraer([{"KEY":"Ventas","VALOR":"Verdadero","COND":Condi["="]}])["Registros"][0]
-            Datos["Bodegas"]=  {"NOMBRE":Bodeg["Nombre"],"ID": Bodeg["ID"]}
-        else:
-            if Salida!="*":
-                Bodeg=Archivo("Bodegas").Extraer([{"KEY":"ID","VALOR":Salida,"COND":Condi["="]}])["Registros"][0]
-            else:
-                Bodeg=Archivo("Bodegas").Extraer([{"KEY":"ID","VALOR":"1","COND":Condi["="]}])["Registros"][0]
+    if Authen(request):
+        Datos=Crear_Dic_Base("Transaccion",request)
+        Datos["BOD_ENTRADA"]= Clase!=1
+        Datos["BOD_SALIDA"]= Clase!=0
+        Plural= ["Proveedores","Clientes","Empleados"] [Clase]
+        Datos["TRANSACCION"]= ["Comprado","Vendido","Transferido"][Clase]
+        No=str(Clase)
+        Clase=["Proveedor","Cliente","Empleado"][Clase]
+        Datos["Tipo"]=Tipo
+        Datos["Clase"]=Clase
+        Datos["URLMovimiento"]="Movimiento-"+Tipo+"-"+No+"-*"+"_Transaccion_Transaccion2producto3TRANSACCION"
+        if Tipo=="Compras":
             Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
-            Datos["Bod"]= Bodeg
-        Productos=Archivo("Bodega2producto").Extraer([{"KEY":"BODEGA","VALOR":Bodeg["ID"],"COND":Condi["="]}])["Registros"]
-        ProdFinal=[]
-        for prod in Productos:
-            DICProducto=Archivo("Producto").Extraer([{"KEY":"ID","VALOR":prod["PRODUCTO"],"COND":Condi["="]}])["Registros"][0]
-            DICProducto["STOCK"]=prod["STOCK"]
-            ProdFinal.append(DICProducto)
-        Datos["Productos"]=ProdFinal
-    if Tipo=="Interno" and Salida=="*":
-        Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
-    Datos["Contactos"]= Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])["Registros"]
-    
-    return render(request,"Movimiento.html",Datos)
+            Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
+        else:
+            if Tipo=="Ventas":
+                Bodeg=Archivo("Bodegas").Extraer([{"KEY":"Ventas","VALOR":"Verdadero","COND":Condi["="]}])["Registros"][0]
+                Datos["Bodegas"]=  {"NOMBRE":Bodeg["Nombre"],"ID": Bodeg["ID"]}
+            else:
+                if Salida!="*":
+                    Bodeg=Archivo("Bodegas").Extraer([{"KEY":"ID","VALOR":Salida,"COND":Condi["="]}])["Registros"][0]
+                else:
+                    Bodeg=Archivo("Bodegas").Extraer([{"KEY":"ID","VALOR":"1","COND":Condi["="]}])["Registros"][0]
+                Datos["Bodegas"]= Archivo("Bodegas").Extraer()["Registros"]
+                Datos["Bod"]= Bodeg
+            Productos=Archivo("Bodega2producto").Extraer([{"KEY":"BODEGA","VALOR":Bodeg["ID"],"COND":Condi["="]}])["Registros"]
+            ProdFinal=[]
+            for prod in Productos:
+                DICProducto=Archivo("Producto").Extraer([{"KEY":"ID","VALOR":prod["PRODUCTO"],"COND":Condi["="]}])["Registros"][0]
+                DICProducto["STOCK"]=prod["STOCK"]
+                ProdFinal.append(DICProducto)
+            Datos["Productos"]=ProdFinal
+        if Tipo=="Interno" and Salida=="*":
+            Datos["Productos"]=Archivo("Producto").Extraer()["Registros"]
+        Datos["Contactos"]= Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":Plural,"COND":Condi["="]}])["Registros"]
+        
+        return render(request,"Movimiento.html",Datos)
+    return redirect("/")
 
 def  Contactos_edicion(request,Tipo):
-    Datos= Crear_Dic_Base("Contacto")
-    Datos["Tipo"]=Tipo
-    Datos["URLContac"]="Contactos-"+Tipo+"_Contacto"
-    return render(request,"Contactos.html",Datos)
-
+    if Authen(request):
+        Datos= Crear_Dic_Base("Contacto",request)
+        Datos["Tipo"]=Tipo
+        Datos["URLContac"]="Contactos-"+Tipo+"_Contacto"
+        return render(request,"Contactos.html",Datos)
+    return redirect("/")
 
 def Producto_edicion(request):
-    Datos= Crear_Dic_Base("Producto")
-    Datos["Tipos"]=Archivo("Tipo_Productos").Extraer()["Registros"]  # type: ignore
-    Datos["Marca"]=Archivo("Marca").Extraer()["Registros"] # type: ignore
-    Datos["Medida"]=Archivo("Producto_Medida").Extraer()["Registros"]  # type: ignore
-    return render(request,"Producto.html",Datos)
+    if Authen(request):
+        Datos= Crear_Dic_Base("Producto",request)
+        Datos["Tipos"]=Archivo("Tipo_Productos").Extraer()["Registros"]  # type: ignore
+        Datos["Marca"]=Archivo("Marca").Extraer()["Registros"] # type: ignore
+        Datos["Medida"]=Archivo("Producto_Medida").Extraer()["Registros"]  # type: ignore
+        return render(request,"Producto.html",Datos)
+    return redirect("/")
