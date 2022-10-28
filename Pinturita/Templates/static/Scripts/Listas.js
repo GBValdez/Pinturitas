@@ -53,7 +53,10 @@ Formulario.addEventListener("focusout",(event)=>{
             //Guarda el boton en la variable
             let Boton = document.getElementById("Emergente_exit")
             //indica la ruta al boton guardar
-            document.getElementById("Emergente_enlace").setAttribute("href","/Edicion/Ingresar_unico/"+ event.target.dataset.archivo+"/"+event.target.value +"/" + event.target.dataset.direccion)
+            let IDACTUAL= document.getElementById("ID").value;
+            document.getElementById("Emergente_enlace").setAttribute("href","/Edicion/Ingresar_unico/"
+                + event.target.dataset.archivo+"/"+event.target.value +"/" + event.target.dataset.direccion
+                +"/"+IDACTUAL.toString())
             //es la funcion que realiza el boton de salir
             Boton.addEventListener("click",()=>{
                 Emergente.remove();

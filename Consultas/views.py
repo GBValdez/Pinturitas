@@ -6,7 +6,7 @@ UserName=""
 
 def Bodegas_Consultas(request):
     if Authen(request):
-        Dicc= Obtener_dic("Bodegas","/Edicion/Bodegas/")
+        Dicc= Obtener_dic("Bodegas",URLPA= "/Edicion/Bodegas/")
         return render(request,"Consulta/Bodegas_Consulta.html",Dicc)
     return redirect("/")
 

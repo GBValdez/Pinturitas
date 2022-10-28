@@ -12,7 +12,7 @@
     <section class="Formulario">
         <!-- include funciona para incluir el html externo al que estamos-->
         {% include 'Individual.html'%}
-        <form action="{% url 'Edicion:Ingresar' 'Usuarios_Usuarios'  %}" method="POST">
+        <form action="{{URLPASAR}}  " method="POST">
         <!-- csrf genera una idetificacion unica por cada informacion creada-->   
             {% csrf_token %}
             <!-- El div "Filas" contendra 2 entradas (inputs)-->

@@ -9,7 +9,7 @@
     <div style="display: none;">
     {% include 'Individual.html'%}
     </div>
-    <form action="{% url 'Edicion:Ingresar' 'Productos_Producto' %}" method="POST">
+    <form action="{{URLPASAR}}" method="POST">
         {% csrf_token %}
         <!-- El div "Filas" contendra 2 entradas (inputs)-->
             <!--El div "Entradas" contiene un label y un input-->

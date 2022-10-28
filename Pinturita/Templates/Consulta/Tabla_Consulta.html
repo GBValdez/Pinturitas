@@ -14,9 +14,13 @@
             <td>{{Valor}}</td>
             {% endfor %}
             <td class="CELDABTN">
-                <a class="BlancocuadroConsultas" href="{{URL}}/{{Dic[0]}}">
+                {% for Valor in Dic %}
+                {% if forloop.first %}
+                <a class="BlancocuadroConsultas" href="{{URL}}{{Valor}}">
                     <img src="{% static 'Imagenes/Editar.png' %}"  alt="" class="BtRegistro BlancoBt" style="height: 20px; width: 20px;">
                 </a>
+                {% endif %}
+                {% endfor %}
             </td>
         </tr>
         {% endfor %}

@@ -6,3 +6,5 @@
 {'ID': '6', 'CONTACTO': '1', 'USERNAME': 'PAPAPA', 'PASSWORD': '12RIKF103', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:01:37'}
 {'ID': '7', 'CONTACTO': '1', 'USERNAME': 'aofjqow', 'PASSWORD': 'qwjkfowq', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:04:02'}
 {'ID': '8', 'CONTACTO': '1', 'USERNAME': 'ewgq', 'PASSWORD': 'egwe', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 02:24:12'}
+{'ID': '9', 'CONTACTO': '1', 'USERNAME': 'WWWW', 'PASSWORD': 'WQQQQQQ', 'Rol': 'Vendedor', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 04:01:00'}
+{'ID': '10', 'CONTACTO': '1', 'USERNAME': 'ESOPAPA', 'PASSWORD': 'WEQGQ', 'Rol': 'Bodeguero', 'Estado': 'Activo', 'CREADOR': 'Benjabriel', 'Dia': '28/10/2022 04:01:13'}

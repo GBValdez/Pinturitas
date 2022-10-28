@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 import string
 from django.shortcuts import redirect, render
+from Consultas import url
 from Pinturita.Archivos  import Archivo, CONDICION as Condi
 from pathlib import Path
 import datetime
@@ -51,10 +52,18 @@ def Obtener_dic(papu,Archimas):
         return Dic
     return NULL
 
-def Crear_Dic_Base(Ruta,request):
+def Crear_Dic_Base(Ruta,request,ID,URL):
     Lineas:int= Archivo(Ruta).Lineas()
     Usuario=  Decodificar(request.session.get("User"))
-    Datos= {"IDNO":Lineas,"CREADOR":Usuario[1]}
+    Datos= {"IDNO":ID,"CREADOR":Usuario[1]}
+    Datos["URLPASAR"]=f"/Edicion/Ingresar/{URL}"
+    Datos["ACTUAREGISTRO"]=""
+    if Lineas!= ID:
+        Arch=Archivo("Usuarios").Extraer([{"KEY":"ID","VALOR":ID,"COND":Condi["="]}])["Registros"]
+        if len(Arch)>0:
+            Datos["ACTUAREGISTRO"]= Arch[0]
+    if ID=="":
+         Datos["IDNO"]=Lineas           
     return Datos
 
 def Ingresar(request,Tipo):
@@ -69,18 +78,21 @@ def Ingresar(request,Tipo):
         Dic['Dia']= datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         Usuario= Archivo(Palabras[1])
         Usuario.Insertar(Dic,True)
-    return redirect("/Edicion/"+Palabras[0])
+    return redirect("/Consultas/"+Palabras[0])
 
 
-def Ingresar_unicos(request,Nom_Archivo,Valor,Vista):
+def Ingresar_unicos(request,Nom_Archivo,Valor,Vista,ID):
     #Verifica si el nombre del archivo no es Dir
     if Nom_Archivo!="Dir":
         #crea el diccionario 
-        Dic=Crear_Dic_Base(Nom_Archivo,request)
+        Dic=Crear_Dic_Base(Nom_Archivo,request,"","")
         #cambiamos el IDNO a ID
         Dic["ID"]= Dic["IDNO"]
         #eliminamos IDNO
         del Dic["IDNO"]
+        
+        del Dic["URLPASAR"]
+        del Dic["ACTUAREGISTRO"]
         #colocamos valor al Nombre
         Dic["Nombre"]=Valor
         #Ingresamos la fecha y hora que se esta ejecutando
@@ -90,20 +102,20 @@ def Ingresar_unicos(request,Nom_Archivo,Valor,Vista):
         Arch.Insertar(Dic)
         #la url nos dirige denuevo a la vista
     url=Vista.replace("_","/")
-    return redirect("/Edicion/"+url)
+    return redirect("/Edicion/"+url+"/"+str(ID))
 
 
-def Bodega_edicio(request):
+def Bodega_edicio(request,ID):
     if Authen(request):
         Datos= Crear_Dic_Base("Bodegas",request)
         Datos["Productos"]= Archivo("Producto").Extraer()["Registros"]
         return render(request,"Bodegas.html",Datos)
     return redirect("/")
 
-def Usuario_edicion(request):
+def Usuario_edicion(request,ID):
     if Authen(request):
         #Creamos nuestro diccionario, que pueda el numero de registro que tiene el archivo y el nombre del creador
-        Datos= Crear_Dic_Base("Usuarios",request)
+        Datos= Crear_Dic_Base("Usuarios",request,ID,"Usuarios_Usuarios")
         #Llamamos la informacion de contacto y extrae la informacion especifica de contacto
         Datos["Empleados"]=Archivo("Contacto").Extraer([{"KEY":"TIPO","VALOR":"Empleados","COND":Condi["="]}])["Registros"]  # type: ignore
         #Muestra el archivo html o la vista y le pasa la informacion del diccionario
@@ -111,7 +123,7 @@ def Usuario_edicion(request):
     return redirect("/")
 
 
-def Movimiento_Edicion(request,Tipo,Clase,Salida="*"):
+def Movimiento_Edicion(request,Tipo,Clase,Salida="*",ID=0):
     if Authen(request):
         Datos=Crear_Dic_Base("Transaccion",request)
         Datos["BOD_ENTRADA"]= Clase!=1
@@ -151,7 +163,7 @@ def Movimiento_Edicion(request,Tipo,Clase,Salida="*"):
         return render(request,"Movimiento.html",Datos)
     return redirect("/")
 
-def  Contactos_edicion(request,Tipo):
+def  Contactos_edicion(request,Tipo,ID):
     if Authen(request):
         Datos= Crear_Dic_Base("Contacto",request)
         Datos["Tipo"]=Tipo
@@ -159,9 +171,9 @@ def  Contactos_edicion(request,Tipo):
         return render(request,"Contactos.html",Datos)
     return redirect("/")
 
-def Producto_edicion(request):
+def Producto_edicion(request,ID):
     if Authen(request):
-        Datos= Crear_Dic_Base("Producto",request)
+        Datos= Crear_Dic_Base("Producto",request,ID,"Productos_Producto_Consulta")
         Datos["Tipos"]=Archivo("Tipo_Productos").Extraer()["Registros"]  # type: ignore
         Datos["Marca"]=Archivo("Marca").Extraer()["Registros"] # type: ignore
         Datos["Medida"]=Archivo("Producto_Medida").Extraer()["Registros"]  # type: ignore
