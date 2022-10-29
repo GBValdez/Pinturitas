@@ -3,10 +3,13 @@ from django.shortcuts import redirect, render
 from Pinturita.Archivos import CONDICION as Condi
 from Pinturita.User64 import Verificar_autenticacion as Authen
 UserName=""
-
+#Vista bbodegas consulta
 def Bodegas_Consultas(request):
+    #Verificamos si el usuario esta autenticado
     if Authen(request):
+        #Obtenemos la informacion para incustrar en la plantilla
         Dicc= Obtener_dic("Bodegas",URLPA= "/Edicion/Bodegas/")
+        #Renderizamos nuestro html
         return render(request,"Consulta/Bodegas_Consulta.html",Dicc)
     return redirect("/")
 
@@ -57,10 +60,17 @@ def Usuario_Consulta(request):
     return redirect("/")
 #Diccionario para obtener todas las consultas
 
+#Esta funcion devolvera la informacion necesaria para mostrar en las vistas de consulta
+#sus parametros es el nombre del archivo donde se estraera la informacion, las condiciones para extraer esa informacion
+#y l url para ir las vistas edicion
 def Obtener_dic(Nom_archivo,condiciones="",URLPA="") -> dict:
+    #Extraemos los registros
     Arch= Archivo(Nom_archivo).Extraer(condiciones)["Registros"]
+    #Extraemos el total de lineas de cada registro
     MasID=Archivo(Nom_archivo).Lineas() 
+    #Esta variable guardara una lista de lo tipos de registros que hay para poner el encabezado de la tabla
     Llaves=Arch[0].keys() if len(Arch)>0 else []
+    #Creamos nuestro dic
     Dic={"Encabezado":Llaves,"Valores": [Valor.values() for Valor in Arch],
          "URL":URLPA,"URLULTIMO": URLPA+str(MasID)}
     return Dic

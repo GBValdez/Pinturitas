@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 import string
 from django.shortcuts import redirect, render
 from Consultas import url
@@ -8,6 +7,7 @@ import datetime
 from Pinturita.User64 import Decodificar,Verificar_autenticacion as Authen 
 UserName=""
 
+#La siguiente función procesa la información enviada en los formularios para crear los registros
 def Obtener_dic(papu,Archimas):
     if papu.method=="POST":
         Dic= papu.POST.dict()
@@ -50,38 +50,49 @@ def Obtener_dic(papu,Archimas):
                     
         del(Dic['csrfmiddlewaretoken'])
         return Dic
-    return NULL
+    return None
 
+#Este la informacion base que se incrustara en los archivos html
 def Crear_Dic_Base(Ruta,request,ID,URL):
+    #Extraemos el total del lineas que tiene el documento para el ID
     Lineas:int= Archivo(Ruta).Lineas()
+    #Extraemos el usuario la que tiene abierta la sesion
     Usuario=  Decodificar(request.session.get("User"))
+    #Creamos un diccionario con la información
     Datos= {"IDNO":ID,"CREADOR":Usuario[1]}
     if ID==0:
+        #Si el id de la url es 0, entnces IDNO sera el total de lineas del archivo
         Datos["IDNO"]=Lineas
+    #La url para el form
     Datos["URLPASAR"]=f"/Edicion/Ingresar/{URL}"
-    Datos["ACTUAREGISTRO"]=""
-    if Lineas!= ID:
-        Arch=Archivo("Usuarios").Extraer([{"KEY":"ID","VALOR":ID,"COND":Condi["="]}])["Registros"]
-        if len(Arch)>0:
-            Datos["ACTUAREGISTRO"]= Arch[0]
     if ID=="":
          Datos["IDNO"]=Lineas           
     return Datos
 
+
+#Esta funcion se ejecutara cuando se envié la información por los form
 def Ingresar(request,Tipo):
+    #Cambiamos algunos caracteres de la variable enviada por url
     Palabras = Tipo.replace("-","/")
+    #Separamos la variable enviada por url
     Palabras= Palabras.split("_")
+    #Remplazamos el * de todo el areglo que acabamos de hacer
     Otra= [pal.replace("*","_") for pal in Palabras]
     Palabras=Otra
     ArchiMAS:string=""
+    #Si se encuentra 3 valores en el arreglo que acabamos de hacer, guardaremos en esta variable el 3er valor
     if len(Palabras)==3:
         ArchiMAS=Palabras[2]
-        
+    #Procesamos la informacion enviada para obtener un registro    
     Dic=Obtener_dic(request,ArchiMAS)
-    if Dic!=NULL:
+    if Dic!=None:
+        #Guardamos en ese registro el dia que fue creado
         Dic['Dia']= datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        #Creamos un objecto de archivo para insertar la informacion
         Usuario= Archivo(Palabras[1])
+        #Insertamos la información en el archivo
         Usuario.Insertar(Dic,True)
+    #Regresamo a la vista consulta de la modulo que estamos
     return redirect("/Consultas/"+Palabras[0])
 
 
@@ -106,20 +117,25 @@ def Ingresar_unicos(request,Nom_Archivo,Valor,Vista,ID):
         #guardamos la info del diccionario
         Arch= Archivo(Nom_Archivo)
         Arch.Insertar(Dic)
-        #la url nos dirige denuevo a la vista
+        #la url nos dirige de nuevo a la vista
     if PREID==0:
         ID=0
     url=Vista.replace("_","/")
     return redirect("/Edicion/"+url+"/"+str(ID))
 
-
+#Vista de la bodega edicion
 def Bodega_edicio(request,ID):
+    #Verificamos si el usuario esta autenticado
     if Authen(request):
+        #Creamos nuestra informacion base para incrustar en el archivo html
         Datos= Crear_Dic_Base("Bodegas",request,ID,"Bodegas_Bodegas")
+        #Extraemos los productos que existen
         Datos["Productos"]= Archivo("Producto").Extraer()["Registros"]
+        #Renderizamos nuestra vista
         return render(request,"Bodegas.html",Datos)
     return redirect("/")
 
+#Vista de Usuario Edicion
 def Usuario_edicion(request,ID):
     if Authen(request):
         #Creamos nuestro diccionario, que pueda el numero de registro que tiene el archivo y el nombre del creador
@@ -130,7 +146,7 @@ def Usuario_edicion(request,ID):
         return render(request,"Usuario.html",Datos)
     return redirect("/")
 
-
+#Vista de movimientos edicion
 def Movimiento_Edicion(request,Tipo,Clase,Salida="*",ID=0):
     if Authen(request):
         Datos=Crear_Dic_Base("Transaccion",request,ID,"")
@@ -171,6 +187,7 @@ def Movimiento_Edicion(request,Tipo,Clase,Salida="*",ID=0):
         return render(request,"Movimiento.html",Datos)
     return redirect("/")
 
+#Vista para contactos edición
 def  Contactos_edicion(request,Tipo,ID):
     if Authen(request):
         Tipos= str(["Proveedores","Clientes","Empleados"].index(Tipo))
@@ -181,6 +198,7 @@ def  Contactos_edicion(request,Tipo,ID):
         return render(request,"Contactos.html",Datos)
     return redirect("/")
 
+#Vista para producto edicion
 def Producto_edicion(request,ID):
     if Authen(request):
         Datos= Crear_Dic_Base("Producto",request,ID,"Producto*Consulta_Producto")
